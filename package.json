@@ -1,0 +1,22 @@
+{
+  "name": "mmm-scripts",
+  "description": "An opinionated tool for building personal projects.",
+  "license": "MIT",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "git@github.com:mmmurray/mmm-scripts.git",
+  "author": "Mark Murray <mark@murray.xyz>",
+  "bin": {
+    "mmm-scripts": "bin/mmm-scripts.js"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.4.2",
+    "jest": "^23.4.2",
+    "lodash": "^4.17.10",
+    "scripts-toolbox": "^0.0.1",
+    "ts-jest": "^23.1.2",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1"
+  }
+}
