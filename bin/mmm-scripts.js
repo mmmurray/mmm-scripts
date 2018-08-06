@@ -22,9 +22,13 @@ run({
   build: () => typescriptBuild({ config: tsConfig }),
   pack: () => webpackBuild({ config: webpackConfig.default, env: 'production' }),
   format: () => prettier({ config: prettierConfig }),
-  watch: () =>
+  watch: args =>
     watcher({
       compile: typescriptWatch({ config: tsConfig }),
-      bundler: webpackWatch({ config: webpackConfig.default, env: 'development' }),
+      bundler: webpackWatch({
+        config: webpackConfig.default,
+        env: 'development',
+        port: args.webpackPort,
+      }),
     }),
 })
