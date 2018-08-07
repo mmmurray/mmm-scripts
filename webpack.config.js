@@ -54,8 +54,6 @@ module.exports.default = env => {
     devServer: {
       hotOnly: true,
       index: '',
-      publicPath: '/',
-
       contentBase: join(process.cwd(), 'public'),
       proxy: [
         {
