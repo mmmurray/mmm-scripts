@@ -3,6 +3,7 @@
 const {
   run,
   jest,
+  nodemonWatch,
   prettier,
   typescriptBuild,
   typescriptWatch,
@@ -29,6 +30,13 @@ run({
         config: webpackConfig.default,
         env: 'development',
         port: args.webpackPort,
+      }),
+      server: nodemonWatch({
+        options: {
+          script: 'lib/server/dev.js',
+          delay: 1,
+          watch: 'lib/server',
+        },
       }),
     }),
 })
