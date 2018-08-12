@@ -28,4 +28,8 @@ module.exports = {
       tsConfigFile: createTypescriptConfigFile(process.cwd(), require('./tsconfig.json')),
     },
   },
+  watchPlugins: [
+    resolve.sync('jest-watch-typeahead/filename', { basedir: __dirname }),
+    resolve.sync('jest-watch-typeahead/testname', { basedir: __dirname }),
+  ],
 }
