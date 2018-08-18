@@ -6,7 +6,6 @@
     "module": "commonjs",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": true,
     "sourceMap": true,
     "strict": true,
     "target": "es6"
