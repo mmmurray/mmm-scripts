@@ -4,8 +4,9 @@ const { createTypescriptConfigFile } = require('scripts-toolbox')
 const webpack = require('webpack')
 
 const includeIf = (condition, item) => (condition ? [item] : [])
+const includePropertyIf = (condition, name, item) => (condition ? { [name]: item } : {})
 
-module.exports.default = env => {
+module.exports.default = ({ proxy, entry } = {}) => env => {
   const dev = env === 'development'
 
   return {
@@ -15,7 +16,7 @@ module.exports.default = env => {
       ...includeIf(dev, 'webpack-dev-server/client?http://0.0.0.0:8888'),
       ...includeIf(dev, 'webpack/hot/only-dev-server'),
       ...includeIf(dev, 'react-hot-loader/patch'),
-      './src',
+      entry || './src',
     ],
     output: {
       filename: 'bundle.js',
@@ -56,14 +57,14 @@ module.exports.default = env => {
       hotOnly: true,
       index: '',
       contentBase: join(process.cwd(), 'public'),
-      proxy: [
+      ...includePropertyIf(proxy, 'proxy', [
         {
           context: () => true,
           target: 'http://localhost:9000',
         },
-      ],
+      ]),
     },
   }
 }
 
-module.exports.mergeDefaultWith = config => env => merge(module.exports.default(env), config)
+module.exports.mergeDefaultWith = config => env => merge(module.exports.default()(env), config)
