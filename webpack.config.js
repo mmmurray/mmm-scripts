@@ -2,6 +2,7 @@ const { join } = require('path')
 const { merge } = require('lodash')
 const { createTypescriptConfigFile } = require('scripts-toolbox')
 const webpack = require('webpack')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const includeIf = (condition, item) => (condition ? [item] : [])
 const includePropertyIf = (condition, name, item) => (condition ? { [name]: item } : {})
@@ -25,7 +26,10 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
     resolve: {
       extensions: ['.ts', '.tsx', '.js', '.json'],
     },
-    plugins: [...includeIf(dev, new webpack.HotModuleReplacementPlugin())],
+    plugins: [
+      ...includeIf(dev, new webpack.HotModuleReplacementPlugin()),
+      ...includeIf(!dev, new BundleAnalyzerPlugin({ analyzerMode: 'static' })),
+    ],
     module: {
       rules: [
         {

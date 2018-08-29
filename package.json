@@ -21,6 +21,7 @@
     "scripts-toolbox": "^0.0.2",
     "ts-jest": "^23.1.2",
     "ts-loader": "^4.4.2",
-    "typescript": "^3.0.1"
+    "typescript": "^3.0.1",
+    "webpack-bundle-analyzer": "^2.13.1"
   }
 }
