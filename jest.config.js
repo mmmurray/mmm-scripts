@@ -3,11 +3,23 @@ const { join } = require('path')
 const resolve = require('resolve')
 
 const hasSetupFile = existsSync(join(process.cwd(), 'test', 'setup.js'))
-const { createTypescriptConfigFile } = require('scripts-toolbox')
+const { createTypescriptConfig } = require('scripts-toolbox')
+
+const tsConfig = createTypescriptConfig(
+  process.cwd(),
+  require('./tsconfig.json'),
+)
 
 module.exports = {
+  preset: 'ts-jest',
   clearMocks: true,
-  collectCoverageFrom: ['src/**/*.js', 'src/**/*.jsx', 'src/**/*.ts', 'src/**/*.tsx', '!src/**/system/**/*'],
+  collectCoverageFrom: [
+    'src/**/*.js',
+    'src/**/*.jsx',
+    'src/**/*.ts',
+    'src/**/*.tsx',
+    '!src/**/system/**/*',
+  ],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -17,15 +29,11 @@ module.exports = {
     },
   },
   setupTestFrameworkScriptFile: hasSetupFile ? './test/setup.js' : undefined,
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testURL: 'http://localhost',
-  transform: {
-    '.(ts|tsx)': resolve.sync('ts-jest', { basedir: __dirname }),
-  },
   globals: {
     'ts-jest': {
-      tsConfigFile: createTypescriptConfigFile(process.cwd(), require('./tsconfig.json')),
+      tsConfig: tsConfig.compilerOptions,
     },
   },
   watchPlugins: [
