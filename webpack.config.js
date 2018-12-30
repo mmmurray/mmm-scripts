@@ -2,10 +2,12 @@ const { join } = require('path')
 const { merge } = require('lodash')
 const { createTypescriptConfigFile } = require('scripts-toolbox')
 const webpack = require('webpack')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
 
 const includeIf = (condition, item) => (condition ? [item] : [])
-const includePropertyIf = (condition, name, item) => (condition ? { [name]: item } : {})
+const includePropertyIf = (condition, name, item) =>
+  condition ? { [name]: item } : {}
 
 module.exports.default = ({ proxy, entry } = {}) => env => {
   const dev = env === 'development'
@@ -47,7 +49,10 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
               loader: 'ts-loader',
               options: {
                 transpileOnly: true,
-                configFile: createTypescriptConfigFile(process.cwd(), require('./tsconfig.json')),
+                configFile: createTypescriptConfigFile(
+                  process.cwd(),
+                  require('./tsconfig.json'),
+                ),
               },
             },
           ],
@@ -61,6 +66,9 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
       hotOnly: true,
       index: '',
       contentBase: join(process.cwd(), 'public'),
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       ...includePropertyIf(proxy, 'proxy', [
         {
           context: () => true,
@@ -71,4 +79,5 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
   }
 }
 
-module.exports.mergeDefaultWith = config => env => merge(module.exports.default()(env), config)
+module.exports.mergeDefaultWith = config => env =>
+  merge(module.exports.default()(env), config)
