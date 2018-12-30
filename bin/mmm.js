@@ -44,7 +44,7 @@ run({
   pack: () => webpackBuild({ config: webpackConfig, env: 'production' }),
   format: () => prettier({ config: prettierConfig }),
   watch: args => {
-    const use = (args.use || '').split(',')
+    const use = args.use ? args.use.split(',') : []
     const useBundler = use.length === 0 || use.includes('bundler')
     const useServer = use.length === 0 || use.includes('server')
     const useCompiler = use.length === 0 || use.includes('compiler')
