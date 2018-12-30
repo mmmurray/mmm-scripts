@@ -29,7 +29,13 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
     },
     plugins: [
       ...includeIf(dev, new webpack.HotModuleReplacementPlugin()),
-      ...includeIf(!dev, new BundleAnalyzerPlugin({ analyzerMode: 'static' })),
+      ...includeIf(
+        !dev,
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+        }),
+      ),
     ],
     module: {
       rules: [
