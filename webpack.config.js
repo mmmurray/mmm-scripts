@@ -1,6 +1,5 @@
 const { join } = require('path')
 const { merge } = require('lodash')
-const { createTypescriptConfigFile } = require('scripts-toolbox')
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
@@ -37,22 +36,18 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
         {
           test: /\.tsx?$/,
           use: [
-            ...includeIf(dev, {
+            {
               loader: 'babel-loader',
               options: {
+                cwd: __dirname,
                 babelrc: false,
                 cacheDirectory: true,
-                plugins: ['react-hot-loader/babel'],
-              },
-            }),
-            {
-              loader: 'ts-loader',
-              options: {
-                transpileOnly: true,
-                configFile: createTypescriptConfigFile(
-                  process.cwd(),
-                  require('./tsconfig.json'),
-                ),
+                presets: ['@babel/typescript', '@babel/react'],
+                plugins: [
+                  ...includeIf(dev, 'react-hot-loader/babel'),
+                  '@babel/proposal-class-properties',
+                  '@babel/proposal-object-rest-spread',
+                ],
               },
             },
           ],
@@ -60,7 +55,7 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
       ],
     },
     resolveLoader: {
-      modules: ['node_modules', join(__dirname, 'node_modules')],
+      modules: [join(__dirname, 'node_modules'), 'node_modules'],
     },
     devServer: {
       hotOnly: true,

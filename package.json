@@ -10,7 +10,11 @@
     "mmm": "bin/mmm.js"
   },
   "dependencies": {
-    "babel-core": "^6.26.3",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.2.0",
+    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-typescript": "^7.1.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
     "jest": "^23.6.0",
@@ -20,7 +24,6 @@
     "resolve": "^1.8.1",
     "scripts-toolbox": "^0.0.4",
     "ts-jest": "^23.10.5",
-    "ts-loader": "^5.3.0",
     "typescript": "^3.1.6",
     "webpack-bundle-analyzer": "^3.0.3"
   }
