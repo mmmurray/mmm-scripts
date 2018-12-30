@@ -5483,10 +5483,10 @@ schema-utils@^0.4.4, schema-utils@^0.4.5:
     ajv "^6.1.0"
     ajv-keywords "^3.1.0"
 
-scripts-toolbox@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.0.2.tgz#223e7d92b4ddd3b79b18e656f08bb0b4ba68477d"
-  integrity sha512-6kFz4wkyVXl4wdDUiraPtyzUiufTmS/SVf/PfJ2ZZwWVGbjH1zJfW/lCnmu70t2C76GnJ9WO9rbTG53t8i8WpQ==
+scripts-toolbox@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.0.4.tgz#f1bb8d647160fb9dbe9feadcf28e7769c059d573"
+  integrity sha512-ufu5RDayoAKkvjAg8sWQJAQtVDO+vsU/oBsxsr0PVi5BVFisrmcrqoRdRr7ewQExLpmOj5svV31678z77YR8fQ==
   dependencies:
     chalk "^2.4.1"
     jest "^23.4.2"
