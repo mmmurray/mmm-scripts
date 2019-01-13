@@ -40,7 +40,10 @@ run({
   jest: args => jest({ config: jestConfig, options: { watch: true, ...args } }),
   coverage: args =>
     jest({ config: jestConfig, options: { coverage: true, ...args } }),
-  build: () => typescriptBuild({ config: tsConfig }),
+  build: args =>
+    args.w
+      ? watcher({ compile: typescriptWatch({ config: tsConfig }) })
+      : typescriptBuild({ config: tsConfig }),
   pack: () => webpackBuild({ config: webpackConfig, env: 'production' }),
   format: () => prettier({ config: prettierConfig }),
   watch: args => {
