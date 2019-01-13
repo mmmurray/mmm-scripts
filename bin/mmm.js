@@ -41,7 +41,7 @@ run({
   coverage: args =>
     jest({ config: jestConfig, options: { coverage: true, ...args } }),
   build: args =>
-    args.w
+    args.watch
       ? watcher({
           compile: typescriptWatch({ config: tsConfig }),
           ...(args.server
