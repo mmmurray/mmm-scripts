@@ -42,7 +42,20 @@ run({
     jest({ config: jestConfig, options: { coverage: true, ...args } }),
   build: args =>
     args.w
-      ? watcher({ compile: typescriptWatch({ config: tsConfig }) })
+      ? watcher({
+          compile: typescriptWatch({ config: tsConfig }),
+          ...(args.server
+            ? {
+                server: nodemonWatch({
+                  options: {
+                    script: args.server,
+                    delay: 1,
+                    watch: 'lib',
+                  },
+                }),
+              }
+            : {}),
+        })
       : typescriptBuild({ config: tsConfig }),
   pack: () => webpackBuild({ config: webpackConfig, env: 'production' }),
   format: () => prettier({ config: prettierConfig }),
