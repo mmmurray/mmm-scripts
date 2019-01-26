@@ -23,7 +23,6 @@
     "react-hot-loader": "4.6.3",
     "resolve": "1.10.0",
     "scripts-toolbox": "0.0.4",
-    "ts-jest": "23.10.5",
     "typescript": "3.2.4",
     "webpack-bundle-analyzer": "3.0.3"
   }
