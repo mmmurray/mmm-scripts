@@ -11,7 +11,6 @@ const tsConfig = createTypescriptConfig(
 )
 
 module.exports = {
-  preset: 'ts-jest',
   clearMocks: true,
   collectCoverageFrom: [
     'src/**/*.js',
