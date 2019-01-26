@@ -3,15 +3,8 @@ const { join } = require('path')
 const resolve = require('resolve')
 
 const hasSetupFile = existsSync(join(process.cwd(), 'test', 'setup.js'))
-const { createTypescriptConfig } = require('scripts-toolbox')
-
-const tsConfig = createTypescriptConfig(
-  process.cwd(),
-  require('./tsconfig.json'),
-)
 
 module.exports = {
-  preset: 'ts-jest',
   clearMocks: true,
   collectCoverageFrom: [
     'src/**/*.js',
@@ -28,13 +21,12 @@ module.exports = {
       statements: 100,
     },
   },
-  setupTestFrameworkScriptFile: hasSetupFile ? './test/setup.js' : undefined,
+  setupFilesAfterEnv: hasSetupFile ? './test/setup.js' : undefined,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
-  globals: {
-    'ts-jest': {
-      tsConfig: tsConfig.compilerOptions,
-    },
+  transform: {
+    '^.+\\.[j|t]sx?$': join(__dirname, 'jest-transform.js'),
   },
   watchPlugins: [
     resolve.sync('jest-watch-typeahead/filename', { basedir: __dirname }),
