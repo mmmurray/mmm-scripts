@@ -27,7 +27,7 @@ module.exports = {
       statements: 100,
     },
   },
-  setupTestFrameworkScriptFile: hasSetupFile ? './test/setup.js' : undefined,
+  setupFilesAfterEnv: hasSetupFile ? './test/setup.js' : undefined,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testURL: 'http://localhost',
   watchPlugins: [
