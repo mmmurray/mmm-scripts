@@ -23,6 +23,7 @@ module.exports = {
   },
   setupFilesAfterEnv: hasSetupFile ? './test/setup.js' : undefined,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
   watchPlugins: [
     resolve.sync('jest-watch-typeahead/filename', { basedir: __dirname }),
