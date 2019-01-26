@@ -25,6 +25,9 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
+  transform: {
+    '^.+\\.[j|t]sx?$': join(__dirname, 'jest-transform.js'),
+  },
   watchPlugins: [
     resolve.sync('jest-watch-typeahead/filename', { basedir: __dirname }),
     resolve.sync('jest-watch-typeahead/testname', { basedir: __dirname }),
