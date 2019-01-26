@@ -3,12 +3,6 @@ const { join } = require('path')
 const resolve = require('resolve')
 
 const hasSetupFile = existsSync(join(process.cwd(), 'test', 'setup.js'))
-const { createTypescriptConfig } = require('scripts-toolbox')
-
-const tsConfig = createTypescriptConfig(
-  process.cwd(),
-  require('./tsconfig.json'),
-)
 
 module.exports = {
   clearMocks: true,
