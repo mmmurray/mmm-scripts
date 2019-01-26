@@ -30,11 +30,6 @@ module.exports = {
   setupTestFrameworkScriptFile: hasSetupFile ? './test/setup.js' : undefined,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testURL: 'http://localhost',
-  globals: {
-    'ts-jest': {
-      tsConfig: tsConfig.compilerOptions,
-    },
-  },
   watchPlugins: [
     resolve.sync('jest-watch-typeahead/filename', { basedir: __dirname }),
     resolve.sync('jest-watch-typeahead/testname', { basedir: __dirname }),
