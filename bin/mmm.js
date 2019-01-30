@@ -57,7 +57,8 @@ run({
             : {}),
         })
       : typescriptBuild({ config: tsConfig }),
-  pack: () => webpackBuild({ config: webpackConfig, env: 'production' }),
+  pack: args =>
+    webpackBuild({ config: webpackConfig, env: args.mode || 'production' }),
   format: () => prettier({ config: prettierConfig }),
   watch: args => {
     const use = args.use ? args.use.split(',') : []
