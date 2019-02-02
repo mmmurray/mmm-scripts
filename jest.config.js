@@ -21,7 +21,7 @@ module.exports = {
       statements: 100,
     },
   },
-  setupFilesAfterEnv: hasSetupFile ? './test/setup.js' : undefined,
+  setupFilesAfterEnv: hasSetupFile ? ['./test/setup.js'] : undefined,
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
