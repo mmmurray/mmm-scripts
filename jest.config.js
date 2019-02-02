@@ -21,7 +21,10 @@ module.exports = {
       statements: 100,
     },
   },
-  setupFilesAfterEnv: hasSetupFile ? ['./test/setup.js'] : undefined,
+  setupFilesAfterEnv: [
+    'jest-dom/extend-expect',
+    ...(hasSetupFile ? ['./test/setup.js'] : []),
+  ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
