@@ -22,7 +22,7 @@ module.exports = {
     },
   },
   setupFilesAfterEnv: [
-    'jest-dom/extend-expect',
+    resolve.sync('jest-dom/extend-expect'),
     ...(hasSetupFile ? ['./test/setup.js'] : []),
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
