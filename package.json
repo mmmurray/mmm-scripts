@@ -27,7 +27,7 @@
     "lodash": "4.17.11",
     "react-hot-loader": "4.6.3",
     "resolve": "1.10.0",
-    "scripts-toolbox": "0.0.5",
+    "scripts-toolbox": "0.0.6",
     "typescript": "3.2.4",
     "webpack-bundle-analyzer": "3.0.3"
   }
