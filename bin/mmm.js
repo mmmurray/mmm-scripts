@@ -49,6 +49,7 @@ run({
                 server: nodemonWatch({
                   options: {
                     script: args.server,
+                    args: (String(args.args) || '').split(' '),
                     delay: 1,
                     watch: 'lib',
                   },
