@@ -40,7 +40,7 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
     module: {
       rules: [
         {
-          test: /\.tsx?$/,
+          test: /\.[j,t]sx?$/,
           use: [
             {
               loader: 'babel-loader',
