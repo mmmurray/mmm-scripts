@@ -694,7 +694,7 @@
     "@babel/helper-regex" "^7.4.4"
     regexpu-core "^4.5.4"
 
-"@babel/preset-env@^7.4.5":
+"@babel/preset-env@7.4.5":
   version "7.4.5"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.4.5.tgz#2fad7f62983d5af563b5f3139242755884998a58"
   integrity sha512-f2yNVXM+FsR5V8UwcFeIHzHWgnhXg3NpRmy0ADvALpnhB0SLbCvrCRr4BLOUYbQNLS+Z0Yer46x9dJXpXewI7w==
@@ -1059,7 +1059,7 @@
   resolved "https://registry.yarnpkg.com/@types/jest-diff/-/jest-diff-20.0.1.tgz#35cc15b9c4f30a18ef21852e255fdb02f6d59b89"
   integrity sha512-yALhelO3i0hqZwhjtcr6dYyaLoCHbAMshwtj6cGxTvHZAKXHsYGdff6E8EPw3xLKY0ELUTQ69Q1rQiJENnccMA==
 
-"@types/jest@^24.0.13":
+"@types/jest@24.0.13":
   version "24.0.13"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-24.0.13.tgz#10f50b64cb05fb02411fbba49e9042a3a11da3f9"
   integrity sha512-3m6RPnO35r7Dg+uMLj1+xfZaOgIHHHut61djNjzwExXN4/Pm9has9C6I1KMYSfz7mahDhWUOVg4HW/nZdv5Pww==
@@ -1071,7 +1071,7 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
   integrity sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
 
-"@types/node@*", "@types/node@^12.0.4":
+"@types/node@*", "@types/node@12.0.4":
   version "12.0.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.0.4.tgz#46832183115c904410c275e34cf9403992999c32"
   integrity sha512-j8YL2C0fXq7IONwl/Ud5Kt0PeXw22zGERt+HSSnwbKOJVsAGkEz3sFCYwaF9IOuoG1HOtE0vKCj6sXF7Q0+Vaw==
@@ -1081,7 +1081,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.5.8.tgz#8ae4e0ea205fe95c3901a5a1df7f66495e3a56ce"
   integrity sha512-3AQoUxQcQtLHsK25wtTWIoIpgYjH3vSDroZOUr7PpCHw/jLY1RB9z9E8dBT/OSmwStVgkRNvdh+ZHNiomRieaw==
 
-"@types/react-dom@^16.8.4":
+"@types/react-dom@16.8.4":
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.4.tgz#7fb7ba368857c7aa0f4e4511c4710ca2c5a12a88"
   integrity sha512-eIRpEW73DCzPIMaNBDP5pPIpK1KXyZwNgfxiVagb5iGiz6da+9A5hslSX6GAQKdO7SayVCS/Fr2kjqprgAvkfA==
@@ -1096,7 +1096,7 @@
     "@types/prop-types" "*"
     csstype "^2.2.0"
 
-"@types/react@^16.8.19":
+"@types/react@16.8.19":
   version "16.8.19"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.8.19.tgz#629154ef05e2e1985cdde94477deefd823ad9be3"
   integrity sha512-QzEzjrd1zFzY9cDlbIiFvdr+YUmefuuRYrPxmkwG0UQv5XF35gFIi7a95m1bNVcFU0VimxSZ5QVGSiBmlggQXQ==
@@ -4078,7 +4078,7 @@ jest-docblock@^24.3.0:
   dependencies:
     detect-newline "^2.1.0"
 
-jest-dom@^3.4.0:
+jest-dom@3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/jest-dom/-/jest-dom-3.4.0.tgz#46c21984a73a4841dc57bc8fc09ccd1d971a8447"
   integrity sha512-fQR5ESaxTfNbZE02y+gtaQH7+sMwzrQtJo5OE0E3BNArjTL9GWNI+uPFr1yS24eodH1X62L+qncv106M/O98gQ==
@@ -6157,10 +6157,10 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
-scripts-toolbox@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.1.0.tgz#10c5fa4ef79a1279d28672266848aa9085a80c4d"
-  integrity sha512-OY0saWg3ryvzF02S7NiFlZrJyLll3amQcbhwtHJFU3mGgfZk5QaAfycs8txr/4bLDYFLnWrlxqKG08Le2v1cfg==
+scripts-toolbox@0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/scripts-toolbox/-/scripts-toolbox-0.1.1.tgz#8fda22075a843157a37c81efe8f45c81bebe47e9"
+  integrity sha512-0OoXg/g7PfTJySHXc4LP1fMXu53pTahlDNKYzo/+8U5iKJdJI1T9qa2wkRbEy9rt0SJNAzr+FqA8sLJ0d40DCA==
   dependencies:
     chalk "2.4.2"
     jest "24.8.0"
