@@ -26,6 +26,7 @@ module.exports = {
     ...(hasSetupFile ? ['./test/setup.js'] : []),
   ],
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  roots: ['src', 'test'],
   testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
   testURL: 'http://localhost',
   transform: {
