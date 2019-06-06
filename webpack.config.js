@@ -25,6 +25,9 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
       path: join(process.cwd(), 'public'),
     },
     resolve: {
+      alias: {
+        'react-dom': '@hot-loader/react-dom',
+      },
       extensions: ['.ts', '.tsx', '.js', '.json'],
     },
     plugins: [
