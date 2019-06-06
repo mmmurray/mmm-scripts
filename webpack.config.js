@@ -13,13 +13,7 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
 
   return {
     mode: env,
-    entry: [
-      ...includeIf(dev, join(__dirname, 'webpack-entry.js')),
-      ...includeIf(dev, 'webpack-dev-server/client?http://0.0.0.0:8888'),
-      ...includeIf(dev, 'webpack/hot/only-dev-server'),
-      ...includeIf(dev, 'react-hot-loader/patch'),
-      entry || './src',
-    ],
+    entry: [...includeIf(dev, 'react-hot-loader/patch'), entry || './src'],
     output: {
       filename: 'bundle.js',
       path: join(process.cwd(), 'public'),
