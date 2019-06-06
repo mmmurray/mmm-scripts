@@ -42,6 +42,7 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
             {
               loader: 'babel-loader',
               options: {
+                compact: false,
                 cwd: __dirname,
                 babelrc: false,
                 cacheDirectory: true,
