@@ -63,18 +63,11 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
     },
     devServer: {
       hotOnly: true,
-      index: '',
       contentBase: join(process.cwd(), 'public'),
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-      ...includePropertyIf(proxy, 'proxy', [
-        {
-          context: () => true,
-          target: 'http://localhost:9000',
         },
-      ]),
-    },
   }
 }
 
