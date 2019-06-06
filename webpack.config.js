@@ -1,3 +1,4 @@
+const { existsSync } = require('fs')
 const { join } = require('path')
 const { merge } = require('lodash')
 const webpack = require('webpack')
@@ -5,10 +6,16 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 
 const includeIf = (condition, item) => (condition ? [item] : [])
-const includePropertyIf = (condition, name, item) =>
-  condition ? { [name]: item } : {}
 
-module.exports.default = ({ proxy, entry } = {}) => env => {
+const entryPaths = [
+  './src/app/index.tsx',
+  './src/client/index.tsx',
+  './src/index.tsx',
+]
+
+const entry = entryPaths.find(path => existsSync(join(process.cwd(), path)))
+
+module.exports.default = env => {
   const dev = env === 'development'
 
   return {
@@ -67,9 +74,9 @@ module.exports.default = ({ proxy, entry } = {}) => env => {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
-        },
+    },
   }
 }
 
 module.exports.mergeDefaultWith = config => env =>
-  merge(module.exports.default()(env), config)
+  merge(module.exports.default(env), config)
