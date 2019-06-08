@@ -1,5 +1,5 @@
 const { existsSync } = require('fs')
-const { join } = require('path')
+const { dirname, join, relative } = require('path')
 const { merge } = require('lodash')
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
@@ -88,16 +88,18 @@ module.exports.default = env => {
   }
 }
 
-module.exports.node = env => {
-  const dev = env === 'development'
+module.exports.createNodeConfig = ({ mode, entry }) => {
+  const dev = mode === 'development'
+  const outputPath = join(process.cwd(), 'dist')
+  const customEntry = join(__dirname, 'bin', 'api-entry.ts')
 
   return {
-    mode: env,
-    entry: ['webpack/hot/poll?300', join(process.cwd(), serverEntry)],
+    mode,
+    entry: ['webpack/hot/poll?300', customEntry],
     target: 'node',
     output: {
       filename: 'server.js',
-      path: join(process.cwd(), 'dist'),
+      path: outputPath,
       libraryTarget: 'commonjs2',
     },
     resolve: {
@@ -123,6 +125,11 @@ module.exports.node = env => {
           openAnalyzer: false,
         }),
       ),
+      new webpack.DefinePlugin({
+        API_ENTRY: JSON.stringify(
+          relative(dirname(customEntry), join(process.cwd(), entry)),
+        ),
+      }),
     ],
     externals: [
       webpackNodeExternals({
