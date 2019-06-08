@@ -97,7 +97,7 @@ module.exports.node = env => {
     target: 'node',
     output: {
       filename: 'server.js',
-      path: process.cwd(),
+      path: join(process.cwd(), 'dist'),
       libraryTarget: 'commonjs2',
     },
     resolve: {
