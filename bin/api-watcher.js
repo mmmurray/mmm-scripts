@@ -5,9 +5,13 @@ const createServerWatcher = entry => ({
   start: (onOutput, onError) => {
     const mode = 'development'
 
-    const serverCompiler = webpack(webpackConfig(mode))
+    const compiler = webpack(webpackConfig(mode))
 
-    serverCompiler.watch(
+    compiler.hooks.done.tap('invalid', () => {
+      onOutput('Bundling.')
+    })
+
+    compiler.watch(
       {
         quiet: true,
         stats: 'none',
@@ -16,7 +20,7 @@ const createServerWatcher = entry => ({
         if (err) {
           onError(err)
         } else {
-          onOutput('Compiled')
+          onOutput('Bundled successfully.')
         }
       },
     )
