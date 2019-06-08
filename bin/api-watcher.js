@@ -1,11 +1,11 @@
 const webpack = require('webpack')
-const webpackConfig = require('../webpack.config').node
+const createNodeConfig = require('../webpack.config').createNodeConfig
 
 const createServerWatcher = entry => ({
   start: (onOutput, onError) => {
     const mode = 'development'
 
-    const compiler = webpack(webpackConfig(mode))
+    const compiler = webpack(createNodeConfig({ mode, entry }))
 
     compiler.hooks.done.tap('invalid', () => {
       onOutput('Bundling.')
