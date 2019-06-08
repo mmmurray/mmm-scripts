@@ -29,7 +29,9 @@
     "react-hot-loader": "4.9.0",
     "resolve": "1.11.0",
     "scripts-toolbox": "0.1.1",
+    "start-server-webpack-plugin": "^2.2.5",
     "typescript": "3.5.1",
-    "webpack-bundle-analyzer": "3.3.2"
+    "webpack-bundle-analyzer": "3.3.2",
+    "webpack-node-externals": "^1.7.2"
   }
 }
