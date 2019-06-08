@@ -4,23 +4,33 @@ const { merge } = require('lodash')
 const webpack = require('webpack')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
+const StartServerPlugin = require('start-server-webpack-plugin')
+const webpackNodeExternals = require('webpack-node-externals')
 
 const includeIf = (condition, item) => (condition ? [item] : [])
 
-const entryPaths = [
+const appEntryPaths = [
   './src/app/index.tsx',
   './src/client/index.tsx',
   './src/index.tsx',
 ]
 
-const entry = entryPaths.find(path => existsSync(join(process.cwd(), path)))
+const appEntry = appEntryPaths.find(path =>
+  existsSync(join(process.cwd(), path)),
+)
+
+const serverEntryPaths = ['./src/server/entry.ts']
+
+const serverEntry = serverEntryPaths.find(path =>
+  existsSync(join(process.cwd(), path)),
+)
 
 module.exports.default = env => {
   const dev = env === 'development'
 
   return {
     mode: env,
-    entry: [...includeIf(dev, 'react-hot-loader/patch'), entry || './src'],
+    entry: [...includeIf(dev, 'react-hot-loader/patch'), appEntry || './src'],
     output: {
       filename: 'bundle.js',
       path: join(process.cwd(), 'public'),
@@ -74,6 +84,77 @@ module.exports.default = env => {
       headers: {
         'Access-Control-Allow-Origin': '*',
       },
+    },
+  }
+}
+
+module.exports.node = env => {
+  const dev = env === 'development'
+
+  return {
+    mode: env,
+    entry: ['webpack/hot/poll?300', join(process.cwd(), serverEntry)],
+    target: 'node',
+    output: {
+      filename: 'server.js',
+      path: process.cwd(),
+      libraryTarget: 'commonjs2',
+    },
+    resolve: {
+      extensions: ['.ts', '.tsx', '.js', '.json'],
+    },
+    node: {
+      __console: false,
+      __dirname: false,
+      __filename: false,
+    },
+    plugins: [
+      ...includeIf(dev, new webpack.HotModuleReplacementPlugin()),
+      ...includeIf(
+        dev,
+        new StartServerPlugin({
+          name: 'server.js',
+        }),
+      ),
+      ...includeIf(
+        !dev,
+        new BundleAnalyzerPlugin({
+          analyzerMode: 'static',
+          openAnalyzer: false,
+        }),
+      ),
+    ],
+    externals: [
+      webpackNodeExternals({
+        whitelist: ['webpack/hot/poll?300'],
+      }),
+    ],
+
+    module: {
+      rules: [
+        {
+          test: /\.[j,t]sx?$/,
+          use: [
+            {
+              loader: 'babel-loader',
+              options: {
+                compact: false,
+                cwd: __dirname,
+                babelrc: false,
+                cacheDirectory: true,
+                presets: ['@babel/typescript', '@babel/react'],
+                plugins: [
+                  '@babel/proposal-class-properties',
+                  '@babel/proposal-object-rest-spread',
+                ],
+              },
+            },
+          ],
+        },
+      ],
+    },
+    resolveLoader: {
+      modules: [join(__dirname, 'node_modules'), 'node_modules'],
     },
   }
 }
