@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-const { existsSync } = require('fs')
-const { join } = require('path')
-
 const {
   run,
   jest,
@@ -17,13 +14,9 @@ const {
 
 const prettierConfig = require('../prettier.config')
 const tsConfig = require('../tsconfig.json')
-const webpackConfig = require('../webpack.config').default
+const webpackConfig = require('../webpack.config')
 const jestConfig = require('../jest.config')
-
-const exists = path => existsSync(join(process.cwd(), path))
-
-const devServerScript = 'lib/server/dev.js'
-const useDevServer = exists(devServerScript)
+const createApiWatcher = require('./api-watcher')
 
 run({
   jest: args => jest({ config: jestConfig, options: { watch: true, ...args } }),
@@ -48,32 +41,25 @@ run({
         })
       : typescriptBuild({ config: tsConfig }),
   pack: args =>
-    webpackBuild({ config: webpackConfig, env: args.mode || 'production' }),
+    webpackBuild({
+      config: webpackConfig.default,
+      env: args.mode || 'production',
+    }),
   format: () => prettier({ config: prettierConfig }),
   dev: args => {
     return watcher({
-      ...(webpackConfig.entry || args.app
+      ...(args.app
         ? {
-            bundler: webpackWatch({
-              config: webpackConfig,
+            app: webpackWatch({
+              config: webpackConfig.default,
               env: 'development',
               port: args.webpackPort,
             }),
           }
         : {}),
-      ...(args.server
-        ? { compile: typescriptWatch({ config: tsConfig }) }
-        : {}),
-      ...(args.server
+      ...(args.api
         ? {
-            server: nodemonWatch({
-              options: {
-                script: args.server,
-                args: (String(args.args) || '').split(' '),
-                delay: 1,
-                watch: 'lib',
-              },
-            }),
+            api: createApiWatcher(args.api),
           }
         : {}),
     })
