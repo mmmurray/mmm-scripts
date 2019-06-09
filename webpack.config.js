@@ -95,7 +95,7 @@ module.exports.createNodeConfig = ({ mode, entry }) => {
 
   return {
     mode,
-    entry: ['webpack/hot/poll?300', customEntry],
+    entry: [...includeIf(dev, 'webpack/hot/poll?300'), customEntry],
     target: 'node',
     output: {
       filename: 'server.js',
@@ -103,7 +103,8 @@ module.exports.createNodeConfig = ({ mode, entry }) => {
       libraryTarget: 'commonjs2',
     },
     resolve: {
-      extensions: ['.ts', '.tsx', '.js', '.json'],
+      extensions: ['.mjs', '.ts', '.tsx', '.js', '.json'],
+      mainFields: ['module', 'main'],
     },
     node: {
       __console: false,
@@ -132,9 +133,12 @@ module.exports.createNodeConfig = ({ mode, entry }) => {
       }),
     ],
     externals: [
-      webpackNodeExternals({
-        whitelist: ['webpack/hot/poll?300'],
-      }),
+      ...includeIf(
+        dev,
+        webpackNodeExternals({
+          whitelist: ['webpack/hot/poll?300'],
+        }),
+      ),
     ],
 
     module: {

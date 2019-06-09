@@ -44,6 +44,7 @@ run({
     webpackBuild({
       config: webpackConfig.default,
       env: args.mode || 'production',
+      options: args,
     }),
   format: () => prettier({ config: prettierConfig }),
   dev: args => {
