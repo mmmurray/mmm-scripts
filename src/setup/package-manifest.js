@@ -16,8 +16,10 @@ const packagePropertySortOrder = [
   'peerDependencies',
   'dependencies',
   'devDependencies',
+  'commitlint',
   'config',
   'eslintConfig',
+  'husky',
   'prettier',
 ]
 
@@ -36,6 +38,9 @@ const addDefaultsToPackage = packageManifest => ({
     'test:coverage': 'mmm test:coverage',
     'test:lint': 'mmm test:lint',
   }),
+  commitlint: {
+    extends: ['@commitlint/config-conventional'],
+  },
   config: {
     commitizen: {
       path: './node_modules/cz-conventional-changelog',
@@ -43,6 +48,11 @@ const addDefaultsToPackage = packageManifest => ({
   },
   eslintConfig: {
     extends: 'eslint-config-mmm/ts-react',
+  },
+  husky: {
+    hooks: {
+      'commit-msg': 'mmm precommit',
+    },
   },
   prettier: 'mmm-scripts/prettier.config',
   ...(packageManifest.bin ? { bin: sortObjectKeys(packageManifest.bin) } : {}),
