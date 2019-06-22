@@ -16,6 +16,7 @@ const packagePropertySortOrder = [
   'peerDependencies',
   'dependencies',
   'devDependencies',
+  'prettier',
 ]
 
 const sortObjectKeys = obj =>
@@ -29,6 +30,7 @@ const addDefaultsToPackage = packageManifest => ({
     ...packageManifest.scripts,
     build: 'mmm build',
   }),
+  prettier: 'mmm-scripts/prettier.config',
   ...(packageManifest.bin ? { bin: sortObjectKeys(packageManifest.bin) } : {}),
   ...(packageManifest.peerDependencies
     ? { peerDependencies: sortObjectKeys(packageManifest.peerDependencies) }
