@@ -1,6 +1,7 @@
 const { copy } = require('fs-extra')
 const { join } = require('path')
 const ensureGitHooks = require('./git-hooks')
+const ensureLicense = require('./license')
 const updatePackageManifest = require('./package-manifest')
 
 const ensureTSConfigFile = projectRoot =>
@@ -10,9 +11,13 @@ const ensureTSConfigFile = projectRoot =>
   )
 
 const setup = async projectRoot => {
+  const packageManifest = await updatePackageManifest(
+    join(projectRoot, 'package.json'),
+  )
+
   await Promise.all([
     ensureGitHooks(projectRoot),
-    updatePackageManifest(join(projectRoot, 'package.json')),
+    ensureLicense(projectRoot, packageManifest),
     ensureTSConfigFile(projectRoot),
   ])
 }

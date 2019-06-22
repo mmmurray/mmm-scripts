@@ -85,6 +85,8 @@ const updatePackageManifest = async packagePath => {
   const newPackage = sortAndFilterProperties(packageManifest)
 
   await writeFile(packagePath, JSON.stringify(newPackage, null, 2) + '\n')
+
+  return newPackage
 }
 
 module.exports = updatePackageManifest
