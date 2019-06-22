@@ -27,6 +27,7 @@
     "babel-jest": "24.8.0",
     "babel-loader": "8.0.6",
     "chalk": "^2.4.2",
+    "eslint-config-mmm": "^0.1.0",
     "fs-extra": "^8.0.1",
     "jest-dom": "3.4.0",
     "jest-watch-typeahead": "0.3.1",
