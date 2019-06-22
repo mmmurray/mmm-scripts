@@ -1,18 +1,9 @@
-const { existsSync } = require('fs')
 const { join } = require('path')
 const resolve = require('resolve')
 
-const hasSetupFile = existsSync(join(process.cwd(), 'test', 'setup.js'))
-
 module.exports = {
   clearMocks: true,
-  collectCoverageFrom: [
-    'src/**/*.js',
-    'src/**/*.jsx',
-    'src/**/*.ts',
-    'src/**/*.tsx',
-    '!src/**/system/**/*',
-  ],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}'],
   coverageThreshold: {
     global: {
       branches: 100,
@@ -21,14 +12,10 @@ module.exports = {
       statements: 100,
     },
   },
-  setupFilesAfterEnv: [
-    resolve.sync('jest-dom/extend-expect'),
-    ...(hasSetupFile ? ['./test/setup.js'] : []),
-  ],
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFilesAfterEnv: [resolve.sync('jest-dom/extend-expect')],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
   roots: ['src', 'test'],
   testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
-  testURL: 'http://localhost',
   transform: {
     '^.+\\.[j|t]sx?$': join(__dirname, 'jest-transform.js'),
   },
