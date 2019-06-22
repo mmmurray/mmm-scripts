@@ -1,6 +1,6 @@
 const { join } = require('path')
 const { existsSync, readFile } = require('fs-extra')
-const defaultConfig = require('../../jest.config')
+const createJestConfig = require('../config/jest')
 
 const createOptionArg = (optionName, optionValue) =>
   typeof optionValue === 'boolean'
@@ -27,7 +27,7 @@ const jest = async (projectRoot, options = {}) => {
 
   const optionsArgs = converOptionsToArgs(options)
   const configArgs = useDefaultConfig
-    ? ['--config', JSON.stringify(defaultConfig)]
+    ? ['--config', JSON.stringify(await createJestConfig(projectRoot))]
     : []
   const args = [...optionsArgs, ...configArgs]
 
