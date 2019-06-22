@@ -16,6 +16,7 @@ const packagePropertySortOrder = [
   'peerDependencies',
   'dependencies',
   'devDependencies',
+  'config',
   'eslintConfig',
   'prettier',
 ]
@@ -30,10 +31,16 @@ const addDefaultsToPackage = packageManifest => ({
   scripts: sortObjectKeys({
     ...packageManifest.scripts,
     build: 'mmm build',
+    commit: 'mmm commit',
     jest: 'mmm jest',
     'test:coverage': 'mmm test:coverage',
     'test:lint': 'mmm test:lint',
   }),
+  config: {
+    commitizen: {
+      path: './node_modules/cz-conventional-changelog',
+    },
+  },
   eslintConfig: {
     extends: 'eslint-config-mmm/ts-react',
   },
