@@ -30,6 +30,7 @@ const addDefaultsToPackage = packageManifest => ({
   scripts: sortObjectKeys({
     ...packageManifest.scripts,
     build: 'mmm build',
+    'test:lint': 'mmm test:lint',
   }),
   eslintConfig: {
     extends: 'eslint-config-mmm/ts-react',
