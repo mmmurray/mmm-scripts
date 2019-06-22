@@ -1,4 +1,5 @@
 const { readFile, writeFile } = require('fs-extra')
+const { join } = require('path')
 
 const packagePropertySortOrder = [
   'name',
@@ -77,7 +78,8 @@ const sortAndFilterProperties = packageManifest =>
     )
     .reduce((acc, name) => ({ ...acc, [name]: packageManifest[name] }), {})
 
-const updatePackageManifest = async packagePath => {
+const updatePackageManifest = async projectRoot => {
+  const packagePath = join(projectRoot, 'package.json')
   const packageManifest = addDefaultsToPackage(
     JSON.parse(await readFile(packagePath, 'utf-8')),
   )
