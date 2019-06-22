@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const parse = require('yargs-parser')
 const commands = require('./commands')
 
