@@ -1,8 +1,10 @@
 const chalk = require('chalk')
 const parse = require('yargs-parser')
 const commands = require('./commands')
+const setup = require('./setup')
 
 const run = async (argv, commands) => {
+  const projectRoot = process.cwd()
   const [, , commandName, ...commandArgv] = argv
   const { _, ...args } = parse(commandArgv)
   const command = commands[commandName]
@@ -12,7 +14,9 @@ const run = async (argv, commands) => {
     process.exit(1)
   }
 
-  const result = await command(args)
+  await setup(projectRoot)
+
+  const result = await command(projectRoot, args)
 
   if (result && result.warning) {
     console.warn(chalk.yellowBright(result.warning))
