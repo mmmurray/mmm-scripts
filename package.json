@@ -41,7 +41,7 @@
     "lodash": "4.17.11",
     "prettier": "^1.18.2",
     "react-hot-loader": "4.9.0",
-    "resolve": "1.11.0",
+    "resolve": "1.11.1",
     "start-server-webpack-plugin": "^2.2.5",
     "typescript": "^3.5.2",
     "webpack-bundle-analyzer": "3.3.2",
