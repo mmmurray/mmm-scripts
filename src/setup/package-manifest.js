@@ -11,18 +11,34 @@ const packagePropertySortOrder = [
   'keywords',
   'main',
   'types',
+  'bin',
   'scripts',
   'peerDependencies',
   'dependencies',
   'devDependencies',
 ]
 
+const sortObjectKeys = obj =>
+  Object.keys(obj)
+    .sort()
+    .reduce((acc, key) => ({ ...acc, [key]: obj[key] }), {})
+
 const addDefaultsToPackage = packageManifest => ({
   ...packageManifest,
-  scripts: {
+  scripts: sortObjectKeys({
     ...packageManifest.scripts,
     build: 'mmm build',
-  },
+  }),
+  ...(packageManifest.bin ? { bin: sortObjectKeys(packageManifest.bin) } : {}),
+  ...(packageManifest.peerDependencies
+    ? { peerDependencies: sortObjectKeys(packageManifest.peerDependencies) }
+    : {}),
+  ...(packageManifest.dependencies
+    ? { dependencies: sortObjectKeys(packageManifest.dependencies) }
+    : {}),
+  ...(packageManifest.devDependencies
+    ? { devDependencies: sortObjectKeys(packageManifest.devDependencies) }
+    : {}),
 })
 
 const sortAndFilterProperties = packageManifest =>
