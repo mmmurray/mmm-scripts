@@ -6,7 +6,7 @@ const createJestConfig = async projectRoot => {
   const ownRoot = join(__dirname, '..', '..')
 
   const { devDependencies = {} } = JSON.parse(
-    await readFile(join(projectRoot, 'package.json', 'utf-8')),
+    await readFile(join(projectRoot, 'package.json'), 'utf-8'),
   )
 
   const hasReactTestingLibrary = Boolean(
