@@ -1,6 +1,6 @@
 const { copy } = require('fs-extra')
 const { join } = require('path')
-const sortPackageProperties = require('./sort-package-properties')
+const updatePackageManifest = require('./package-manifest')
 
 const ensureTSConfigFile = projectRoot =>
   copy(
@@ -10,7 +10,7 @@ const ensureTSConfigFile = projectRoot =>
 
 const setup = async projectRoot => {
   await Promise.all([
-    sortPackageProperties(join(projectRoot, 'package.json')),
+    updatePackageManifest(join(projectRoot, 'package.json')),
     ensureTSConfigFile(projectRoot),
   ])
 }
