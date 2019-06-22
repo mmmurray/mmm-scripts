@@ -9,6 +9,9 @@
   "bin": {
     "mmm": "bin/mmm.js"
   },
+  "scripts": {
+    "commit": "git-cz"
+  },
   "dependencies": {
     "@babel/core": "7.4.5",
     "@babel/plugin-proposal-class-properties": "7.4.4",
@@ -33,5 +36,22 @@
     "typescript": "3.5.1",
     "webpack-bundle-analyzer": "3.3.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.0.0",
+    "@commitlint/config-conventional": "^8.0.0",
+    "commitizen": "^3.1.1",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^2.4.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
