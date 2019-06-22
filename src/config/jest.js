@@ -1,3 +1,4 @@
+const { readFile } = require('fs-extra')
 const { join } = require('path')
 const resolve = require('resolve')
 
