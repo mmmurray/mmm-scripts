@@ -2,12 +2,12 @@ const { createTransformer } = require('babel-jest')
 
 module.exports = createTransformer({
   presets: [
-    ['@babel/preset-env', { targets: { node: '11' } }],
-    '@babel/typescript',
-    '@babel/react',
+    [require('@babel/preset-env'), { targets: { node: '10' } }],
+    require('@babel/preset-typescript'),
+    require('@babel/preset-react'),
   ],
   plugins: [
-    '@babel/proposal-class-properties',
-    '@babel/proposal-object-rest-spread',
+    require('@babel/plugin-proposal-class-properties'),
+    require('@babel/plugin-proposal-object-rest-spread'),
   ],
 })
