@@ -30,6 +30,8 @@ const addDefaultsToPackage = packageManifest => ({
   scripts: sortObjectKeys({
     ...packageManifest.scripts,
     build: 'mmm build',
+    jest: 'mmm jest',
+    'test:coverage': 'mmm test:coverage',
     'test:lint': 'mmm test:lint',
   }),
   eslintConfig: {
