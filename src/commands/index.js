@@ -7,6 +7,9 @@ const precommit = require('./precommit')
 const commands = {
   build,
   commit,
+  init: () => {
+    console.log('Configuring project...')
+  },
   jest: (projectRoot, options) =>
     jest(projectRoot, { watch: true, ...options }),
   precommit,

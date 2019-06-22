@@ -10,7 +10,8 @@
     "mmm": "bin/mmm.js"
   },
   "scripts": {
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "postinstall": "mmm init"
   },
   "dependencies": {
     "@babel/core": "7.4.5",
