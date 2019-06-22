@@ -16,6 +16,7 @@ const packagePropertySortOrder = [
   'peerDependencies',
   'dependencies',
   'devDependencies',
+  'eslintConfig',
   'prettier',
 ]
 
@@ -30,6 +31,9 @@ const addDefaultsToPackage = packageManifest => ({
     ...packageManifest.scripts,
     build: 'mmm build',
   }),
+  eslintConfig: {
+    extends: 'eslint-config-mmm/ts-react',
+  },
   prettier: 'mmm-scripts/prettier.config',
   ...(packageManifest.bin ? { bin: sortObjectKeys(packageManifest.bin) } : {}),
   ...(packageManifest.peerDependencies
