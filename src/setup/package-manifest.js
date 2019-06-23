@@ -19,6 +19,7 @@ const packagePropertySortOrder = [
   'peerDependencies',
   'dependencies',
   'devDependencies',
+  'resolutions',
   'commitlint',
   'config',
   'eslintConfig',
