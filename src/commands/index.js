@@ -11,16 +11,15 @@ const commands = {
   init: () => {
     console.log('Configuring project...')
   },
-  jest: (projectRoot, options) =>
-    jest(projectRoot, { watch: true, ...options }),
+  jest: (config, options) => jest(config, { watch: true, ...options }),
   precommit,
   release,
-  test: async projectRoot => {
-    await lint(projectRoot)
-    await jest(projectRoot, { coverage: true })
+  test: async config => {
+    await lint(config)
+    await jest(config, { coverage: true })
   },
-  'test:coverage': (projectRoot, options) =>
-    jest(projectRoot, { coverage: true, ...options }),
+  'test:coverage': (config, options) =>
+    jest(config, { coverage: true, ...options }),
   'test:lint': lint,
 }
 

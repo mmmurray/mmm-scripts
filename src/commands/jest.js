@@ -18,7 +18,12 @@ const converOptionsToArgs = options =>
 
 const readJSON = async path => JSON.parse(await readFile(path, 'utf-8'))
 
-const jest = async (projectRoot, options = {}) => {
+const jest = async ({ projectRoot, test }, options = {}) => {
+  if (!test.includes('jest')) {
+    console.log('Skipping since jest missing in test option:', test)
+    return
+  }
+
   const hasConfigFile = existsSync(join(projectRoot, 'jest.config.js'))
   const hasConfigProperty = Boolean(
     (readJSON(join(projectRoot, 'package.json')) || {}).jest,

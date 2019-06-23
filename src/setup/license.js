@@ -1,7 +1,7 @@
 const { readFile, writeFile } = require('fs-extra')
 const { join } = require('path')
 
-const ensureLicense = async (projectRoot, packageManifest) => {
+const ensureLicense = async ({ projectRoot }, packageManifest) => {
   if (packageManifest.license === 'MIT') {
     const license = await readFile(
       join(__dirname, '..', '..', 'LICENSE'),

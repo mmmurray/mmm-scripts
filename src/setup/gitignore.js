@@ -1,13 +1,13 @@
 const { readFile, writeFile } = require('fs-extra')
 const { join } = require('path')
+const { hasLibOutput } = require('../helpers/config')
 
-const defaultIgnores = [
-  '.DS_Store',
-  'coverage',
-  'lib',
-  'node_modules',
-  'tsconfig.json',
-  'yarn-error.log',
+const defaultIgnores = ['.DS_Store', 'node_modules', 'yarn-error.log']
+
+const createProjectIgnores = config => [
+  ...(hasLibOutput(config) ? ['lib'] : []),
+  ...(config.test.includes('jest') ? ['coverage'] : []),
+  ...(config.language === 'typescript' ? ['tsconfig.json'] : []),
 ]
 
 const filterUnique = arr => arr.filter((item, i) => arr.indexOf(item) === i)
@@ -25,12 +25,13 @@ const tryReadLines = async path => {
   }
 }
 
-const ensureGitIgnore = async projectRoot => {
+const ensureGitIgnore = async ({ projectRoot, ...config }) => {
   const gitIgnorePath = join(projectRoot, '.gitignore')
   const gitIgnoreLines = await tryReadLines(gitIgnorePath)
   const fullGitIgnoreLines = filterUnique([
     ...gitIgnoreLines,
     ...defaultIgnores,
+    ...createProjectIgnores(config),
   ]).sort()
   const fullGitIgnore = fullGitIgnoreLines.join('\n') + '\n'
 

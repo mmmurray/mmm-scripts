@@ -14,9 +14,9 @@ const run = async (argv, commands) => {
     process.exit(1)
   }
 
-  await setup(projectRoot)
+  const config = await setup(projectRoot)
 
-  const result = await command(projectRoot, args)
+  const result = await command(config, args)
 
   if (result && result.warning) {
     console.warn(chalk.yellowBright(result.warning))

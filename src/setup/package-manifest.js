@@ -1,5 +1,6 @@
-const { readFile, writeFile } = require('fs-extra')
+const { writeFile } = require('fs-extra')
 const { join } = require('path')
+const { hasLibOutput } = require('../helpers/config')
 
 const packagePropertySortOrder = [
   'name',
@@ -22,6 +23,7 @@ const packagePropertySortOrder = [
   'eslintConfig',
   'husky',
   'prettier',
+  'mmm',
 ]
 
 const sortObjectKeys = obj =>
@@ -29,17 +31,23 @@ const sortObjectKeys = obj =>
     .sort()
     .reduce((acc, key) => ({ ...acc, [key]: obj[key] }), {})
 
-const addDefaultsToPackage = packageManifest => ({
+const getProjectScripts = config => ({
+  ...(hasLibOutput(config) ? { build: 'mmm build' } : {}),
+  ...(config.test.includes('jest') ? { jest: 'mmm jest' } : {}),
+  ...(config.type === 'library' ? { release: 'mmm release' } : {}),
+  ...(config.test.length > 0 ? { test: 'mmm test' } : {}),
+  ...(config.test.includes('jest')
+    ? { 'test:coverage': 'mmm test:coverage' }
+    : {}),
+  ...(config.test.includes('eslint') ? { 'test:lint': 'mmm test:lint' } : {}),
+})
+
+const addDefaultsToPackage = (packageManifest, config) => ({
   ...packageManifest,
   scripts: sortObjectKeys({
     ...packageManifest.scripts,
-    build: 'mmm build',
     commit: 'mmm commit',
-    jest: 'mmm jest',
-    release: 'mmm release',
-    test: 'mmm test',
-    'test:coverage': 'mmm test:coverage',
-    'test:lint': 'mmm test:lint',
+    ...getProjectScripts(config),
   }),
   commitlint: {
     extends: ['@commitlint/config-conventional'],
@@ -49,9 +57,13 @@ const addDefaultsToPackage = packageManifest => ({
       path: './node_modules/cz-conventional-changelog',
     },
   },
-  eslintConfig: {
-    extends: 'eslint-config-mmm/ts-react',
-  },
+  ...(config.test.includes('eslint')
+    ? {
+        eslintConfig: {
+          extends: 'eslint-config-mmm/ts-react',
+        },
+      }
+    : {}),
   husky: {
     hooks: {
       'commit-msg': 'mmm precommit',
@@ -80,13 +92,15 @@ const sortAndFilterProperties = packageManifest =>
     )
     .reduce((acc, name) => ({ ...acc, [name]: packageManifest[name] }), {})
 
-const updatePackageManifest = async projectRoot => {
+const updatePackageManifest = async (
+  { projectRoot, ...config },
+  packageManifest,
+) => {
   const packagePath = join(projectRoot, 'package.json')
-  const packageManifest = addDefaultsToPackage(
-    JSON.parse(await readFile(packagePath, 'utf-8')),
-  )
 
-  const newPackage = sortAndFilterProperties(packageManifest)
+  const newPackage = sortAndFilterProperties(
+    addDefaultsToPackage(packageManifest, config),
+  )
 
   await writeFile(packagePath, JSON.stringify(newPackage, null, 2) + '\n')
 
