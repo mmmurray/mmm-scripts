@@ -35,7 +35,9 @@ const getProjectScripts = config => ({
   ...(hasLibOutput(config) ? { build: 'mmm build' } : {}),
   ...(config.test.includes('jest') ? { jest: 'mmm jest' } : {}),
   ...(config.type === 'library' ? { release: 'mmm release' } : {}),
-  ...(config.test.length > 0 ? { test: 'mmm test' } : {}),
+  ...(config.test.length > 0
+    ? { test: 'mmm test' }
+    : { test: `echo 'No tests to run'` }),
   ...(config.test.includes('jest')
     ? { 'test:coverage': 'mmm test:coverage' }
     : {}),
