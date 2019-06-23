@@ -15,6 +15,10 @@ const commands = {
     jest(projectRoot, { watch: true, ...options }),
   precommit,
   release,
+  test: async projectRoot => {
+    await lint(projectRoot)
+    await jest(projectRoot, { coverage: true })
+  },
   'test:coverage': (projectRoot, options) =>
     jest(projectRoot, { coverage: true, ...options }),
   'test:lint': lint,
