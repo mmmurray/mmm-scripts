@@ -47,6 +47,9 @@ const getProjectScripts = config => ({
 
 const addDefaultsToPackage = (packageManifest, config) => ({
   ...packageManifest,
+  ...(config.type === 'library'
+    ? { version: '0.0.0-semantically-released' }
+    : {}),
   scripts: sortObjectKeys({
     ...packageManifest.scripts,
     commit: 'mmm commit',
