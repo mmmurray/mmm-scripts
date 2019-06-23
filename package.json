@@ -11,7 +11,7 @@
   },
   "scripts": {
     "commit": "git-cz",
-    "release": "mmm release",
+    "release": "semantic-release",
     "test": "echo 'No tests to run'"
   },
   "dependencies": {
