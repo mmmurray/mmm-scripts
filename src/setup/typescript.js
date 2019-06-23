@@ -7,7 +7,7 @@ const ensureTypeScript = async ({ projectRoot, language }) => {
   }
 
   await copy(
-    join(__dirname, '..', '..', 'tsconfig.json'),
+    join(__dirname, '..', 'config', 'tsconfig-default.json'),
     join(projectRoot, 'tsconfig.json'),
   )
 }
