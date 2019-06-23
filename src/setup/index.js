@@ -10,6 +10,7 @@ const defaultConfig = {
   type: 'library',
   language: 'typescript',
   test: ['eslint', 'jest'],
+  transformJestConfig: x => x,
 }
 
 const loadConfig = projectRoot => {

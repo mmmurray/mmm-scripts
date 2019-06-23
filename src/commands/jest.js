@@ -18,7 +18,10 @@ const converOptionsToArgs = options =>
 
 const readJSON = async path => JSON.parse(await readFile(path, 'utf-8'))
 
-const jest = async ({ projectRoot, test }, options = {}) => {
+const jest = async (
+  { projectRoot, test, transformJestConfig },
+  options = {},
+) => {
   if (!test.includes('jest')) {
     console.log('Skipping since jest missing in test option:', test)
     return
@@ -29,10 +32,12 @@ const jest = async ({ projectRoot, test }, options = {}) => {
     (readJSON(join(projectRoot, 'package.json')) || {}).jest,
   )
   const useDefaultConfig = !hasConfigFile && !hasConfigProperty
+  const baseConfig = await createJestConfig(projectRoot)
+  const config = transformJestConfig(baseConfig)
 
   const optionsArgs = converOptionsToArgs(options)
   const configArgs = useDefaultConfig
-    ? ['--config', JSON.stringify(await createJestConfig(projectRoot))]
+    ? ['--config', JSON.stringify(config)]
     : []
   const args = [...optionsArgs, ...configArgs]
 
