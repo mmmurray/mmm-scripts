@@ -3082,10 +3082,10 @@ escodegen@^1.9.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-mmm@0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-mmm/-/eslint-config-mmm-0.2.0.tgz#a35891210dc6c28d6b424b5a09d71c0dc2d5ed4e"
-  integrity sha512-t9hr2XdXJBSte+ddS32oYFYtwrqnucvUs3l/3M7HoiZrdMhk/t3yIzyin8m8kLrfMT62zZ6Eh03MZEudQu9Deg==
+eslint-config-mmm@0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-mmm/-/eslint-config-mmm-0.3.0.tgz#556f40929bf40bcdf70b34d3cd92c9635e435fe5"
+  integrity sha512-KtBeAE1Cp7gTKnZi1t6S9Z+yl/NyRASfJg/f/+t/NMnSIJLsW/a0SuW3rO1KF/IhLa00jEBFtMluIdt1VGK2CQ==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^1.10.2"
     "@typescript-eslint/parser" "^1.10.2"
