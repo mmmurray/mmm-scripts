@@ -10,6 +10,7 @@ const packagePropertySortOrder = [
   'license',
   'private',
   'repository',
+  'homepage',
   'keywords',
   'main',
   'types',
