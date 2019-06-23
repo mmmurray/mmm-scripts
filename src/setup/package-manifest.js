@@ -36,6 +36,8 @@ const addDefaultsToPackage = packageManifest => ({
     build: 'mmm build',
     commit: 'mmm commit',
     jest: 'mmm jest',
+    release: 'mmm release',
+    test: 'mmm test',
     'test:coverage': 'mmm test:coverage',
     'test:lint': 'mmm test:lint',
   }),
