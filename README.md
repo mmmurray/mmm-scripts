@@ -1,5 +1,8 @@
 # mmm-scripts
 
+[![Travis](https://travis-ci.com/mmmurray/mmm-scripts.svg?branch=master)](https://travis-ci.com/mmmurray/mmm-scripts)
+[![npm](https://img.shields.io/npm/v/mmm-scripts.svg)](https://www.npmjs.com/package/mmm-scripts)
+
 An opinionated tool for building personal projects.
 
 ## Installation
