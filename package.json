@@ -10,7 +10,9 @@
     "mmm": "bin/mmm.js"
   },
   "scripts": {
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "release": "mmm release",
+    "test": "echo 'No tests to run'"
   },
   "dependencies": {
     "@babel/core": "7.4.5",
