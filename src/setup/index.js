@@ -2,6 +2,7 @@ const { readFile } = require('fs-extra')
 const { join } = require('path')
 const ensureLicense = require('./license')
 const updatePackageManifest = require('./package-manifest')
+const ensureTravis = require('./travis')
 const ensureTypeScript = require('./typescript')
 const ensureGitIgnore = require('./gitignore')
 
@@ -30,7 +31,7 @@ const setup = async projectRoot => {
   const packageManifest = await loadPackageManifest(projectRoot)
 
   const fileConfig = loadConfig(projectRoot)
-  const fullConfig = {
+  const config = {
     ...defaultConfig,
     ...fileConfig,
     ...packageManifest.mmm,
@@ -38,13 +39,14 @@ const setup = async projectRoot => {
   }
 
   await Promise.all([
-    updatePackageManifest(fullConfig, packageManifest),
-    ensureLicense(fullConfig, packageManifest),
-    ensureTypeScript(fullConfig),
-    ensureGitIgnore(fullConfig),
+    updatePackageManifest(config, packageManifest),
+    ensureLicense(config, packageManifest),
+    ensureTravis(config),
+    ensureTypeScript(config),
+    ensureGitIgnore(config),
   ])
 
-  return fullConfig
+  return config
 }
 
 module.exports = setup
