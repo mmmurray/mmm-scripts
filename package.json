@@ -47,6 +47,7 @@
     "semantic-release": "15.13.16",
     "start-server-webpack-plugin": "2.2.5",
     "typescript": "3.5.2",
+    "webpack": "4.35.0",
     "webpack-bundle-analyzer": "3.3.2",
     "webpack-node-externals": "1.7.2",
     "yargs-parser": "13.1.1"
