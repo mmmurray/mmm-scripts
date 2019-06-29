@@ -11,7 +11,7 @@ const build = async ({ projectRoot, ...config }) => {
   }
 
   await emptyDir(join(projectRoot, 'lib'))
-  await spawn(getBinPath('tsc'), [], projectRoot)
+  await spawn(getBinPath('tsc'), ['-p', './tsconfig.build.json'], projectRoot)
 }
 
 module.exports = build
