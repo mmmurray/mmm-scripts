@@ -8,6 +8,9 @@ const createProjectIgnores = config => [
   ...(hasLibOutput(config) ? ['lib'] : []),
   ...(config.test.includes('jest') ? ['coverage'] : []),
   ...(config.language === 'typescript' ? ['tsconfig.json'] : []),
+  ...(config.language === 'typescript' && hasLibOutput(config)
+    ? ['tsconfig.build.json']
+    : []),
 ]
 
 const filterUnique = arr => arr.filter((item, i) => arr.indexOf(item) === i)
