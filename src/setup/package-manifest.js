@@ -40,6 +40,9 @@ const getProjectScripts = config => ({
   ...(config.test.length > 0
     ? { test: 'mmm test' }
     : { test: `echo 'No tests to run'` }),
+  ...(config.language === 'typescript'
+    ? { 'test:compile': 'mmm test:compile' }
+    : {}),
   ...(config.test.includes('jest')
     ? { 'test:coverage': 'mmm test:coverage' }
     : {}),

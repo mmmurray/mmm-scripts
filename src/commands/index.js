@@ -1,5 +1,6 @@
 const build = require('./build')
 const commit = require('./commit')
+const compile = require('./compile')
 const jest = require('./jest')
 const lint = require('./lint')
 const precommit = require('./precommit')
@@ -15,9 +16,14 @@ const commands = {
   precommit,
   release,
   test: async config => {
+    if (config.language === 'typescript') {
+      await compile(config)
+    }
+
     await lint(config)
     await jest(config, { coverage: true })
   },
+  'test:compile': config => compile(config),
   'test:coverage': (config, options) =>
     jest(config, { coverage: true, ...options }),
   'test:lint': lint,
