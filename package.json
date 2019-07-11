@@ -46,7 +46,7 @@
     "resolve": "1.11.1",
     "semantic-release": "15.13.16",
     "start-server-webpack-plugin": "2.2.5",
-    "typescript": "3.5.2",
+    "typescript": "3.5.3",
     "webpack": "4.35.3",
     "webpack-bundle-analyzer": "3.3.2",
     "webpack-node-externals": "1.7.2",
