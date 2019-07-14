@@ -1,4 +1,4 @@
-const { readFile } = require('fs-extra')
+const { exists, readFile } = require('fs-extra')
 const { join } = require('path')
 const resolve = require('resolve')
 
@@ -8,6 +8,8 @@ const createJestConfig = async projectRoot => {
   const { devDependencies = {} } = JSON.parse(
     await readFile(join(projectRoot, 'package.json'), 'utf-8'),
   )
+
+  const hasTestDirectory = await exists(join(projectRoot, 'test'))
 
   const hasReactTestingLibrary = Boolean(
     devDependencies['@testing-library/react'],
@@ -48,7 +50,7 @@ const createJestConfig = async projectRoot => {
     ...globalProperties,
     setupFilesAfterEnv,
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-    roots: ['src', 'test'],
+    roots: ['src', ...(hasTestDirectory ? ['test'] : [])],
     testMatch: ['**/?(*.)+(test).[jt]s?(x)'],
     transform: {
       '^.+\\.[j|t]sx?$': join(__dirname, 'jest-transform.js'),
