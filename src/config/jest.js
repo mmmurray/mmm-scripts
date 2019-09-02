@@ -11,10 +11,6 @@ const createJestConfig = async projectRoot => {
 
   const hasTestDirectory = await exists(join(projectRoot, 'test'))
 
-  const hasReactTestingLibrary = Boolean(
-    devDependencies['@testing-library/react'],
-  )
-
   const hasJestComponentSnapshot = Boolean(
     devDependencies['jest-component-snapshot'],
   )
