@@ -11,19 +11,12 @@ const createJestConfig = async projectRoot => {
 
   const hasTestDirectory = await exists(join(projectRoot, 'test'))
 
-  const hasReactTestingLibrary = Boolean(
-    devDependencies['@testing-library/react'],
-  )
-
   const hasJestComponentSnapshot = Boolean(
     devDependencies['jest-component-snapshot'],
   )
 
   const setupFilesAfterEnv = [
-    resolve.sync('jest-dom/extend-expect'),
-    ...(hasReactTestingLibrary
-      ? ['@testing-library/react/cleanup-after-each']
-      : []),
+    resolve.sync('@testing-library/jest-dom/extend-expect'),
     ...(hasJestComponentSnapshot
       ? ['jest-component-snapshot/extend-expect']
       : []),
