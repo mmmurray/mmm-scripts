@@ -20,7 +20,7 @@ const createJestConfig = async projectRoot => {
   )
 
   const setupFilesAfterEnv = [
-    resolve.sync('jest-dom/extend-expect'),
+    resolve.sync('@testing-library/jest-dom/extend-expect'),
     ...(hasReactTestingLibrary
       ? ['@testing-library/react/cleanup-after-each']
       : []),
