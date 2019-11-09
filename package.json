@@ -4,6 +4,7 @@
   "description": "An opinionated tool for building personal projects.",
   "author": "Mark Murray",
   "license": "MIT",
+  "repository": "git@github.com:mmmurray/mmm-scripts.git",
   "bin": {
     "mmm": "bin/mmm.js"
   },
