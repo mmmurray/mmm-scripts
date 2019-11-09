@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "isolatedModules": false,
+    "module": "commonjs",
+    "noEmit": false,
+    "rootDir": "src",
+    "sourceMap": true,
+    "target": "es5",
+    "outDir": "lib"
+  },
+  "include": [
+    "src/**/*"
+  ]
+}
