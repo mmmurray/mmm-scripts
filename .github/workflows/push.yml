@@ -7,22 +7,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v1
+      - name: Checkout
+        uses: actions/checkout@v1
       - name: Install
         uses: docker://mmmurray/test:1.32
         with:
-          args: yarn install
+          entrypoint: yarn
+          args: install
       - name: Build
         uses: docker://mmmurray/test:1.32
         with:
-          args: yarn build
+          entrypoint: yarn
+          args: build
       - name: Test
         uses: docker://mmmurray/test:1.32
         with:
-          args: yarn test
+          entrypoint: yarn
+          args: test
       - name: Release
         uses: docker://mmmurray/test:1.32
         with:
-          args: yarn release
+          entrypoint: yarn
+          args: release
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
