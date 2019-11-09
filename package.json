@@ -12,7 +12,7 @@
     "build": "ts-node -P ./tsconfig.lib.json ./src build",
     "dev": "ts-node -P ./tsconfig.lib.json ./src dev",
     "jest": "ts-node -P ./tsconfig.lib.json ./src jest",
-    "postinstall": "cd ./node_modules && ln -s .. ./mmm-scripts",
+    "postinstall": "(cd ./node_modules && ln -s .. ./mmm-scripts) || true",
     "release": "ts-node -P ./tsconfig.lib.json ./src release",
     "test": "ts-node -P ./tsconfig.lib.json ./src test",
     "test:compile": "ts-node -P ./tsconfig.lib.json ./src test:compile",
