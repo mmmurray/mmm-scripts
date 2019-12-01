@@ -7,13 +7,20 @@ test('can sort one edge', () => {
 })
 
 test('can sort two edges', () => {
-  const ids = topologicalSort([['a', 'b'], ['b', 'c']])
+  const ids = topologicalSort([
+    ['a', 'b'],
+    ['b', 'c'],
+  ])
 
   expect(ids).toEqual(['c', 'b', 'a'])
 })
 
 test('can sort three edges', () => {
-  const ids = topologicalSort([['a', 'b'], ['b', 'c'], ['a', 'c']])
+  const ids = topologicalSort([
+    ['a', 'b'],
+    ['b', 'c'],
+    ['a', 'c'],
+  ])
 
   expect(ids).toEqual(['c', 'b', 'a'])
 })

@@ -2,7 +2,9 @@ import { formatJSONFile } from '../helpers/file'
 import { ConfigGenerator } from './types'
 
 const prettierGenerator: ConfigGenerator = async () => ({
-  scripts: {},
+  scripts: {
+    format: 'mmm format',
+  },
   files: [
     {
       path: '.prettierrc',

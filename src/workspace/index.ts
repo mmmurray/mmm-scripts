@@ -3,7 +3,7 @@ import { relative } from 'path'
 import yargsParser from 'yargs-parser'
 import { getChangedFilePaths } from '../helpers/git'
 import { pluraliseMessage, printBox, printList } from '../helpers/print'
-import { getRelatedProjects } from '../helpers/project'
+import { getRelatedProjects, sortProjects } from '../helpers/project'
 import { Project } from '../types'
 import { dependencyValidation } from './dependency-validation'
 import { install } from './install'
@@ -81,6 +81,17 @@ const workspace = async (
 
   printList(
     pluraliseMessage(
+      relatedProjects.dependents,
+      '#N changed project #W',
+      'dependent',
+      'dependents',
+    ),
+    relatedProjects.dependents,
+    project => chalk.blueBright(getProjectName(project)),
+  )
+
+  printList(
+    pluraliseMessage(
       relatedProjects.dependencies,
       '#N changed project #W',
       'dependency',
@@ -90,24 +101,16 @@ const workspace = async (
     project => chalk.blueBright(getProjectName(project)),
   )
 
-  printList(
-    pluraliseMessage(
-      relatedProjects.dependants,
-      '#N changed project #W',
-      'dependant',
-      'dependants',
-    ),
-    relatedProjects.dependants,
-    project => chalk.blueBright(getProjectName(project)),
-  )
-
-  const allRelated = [
+  const allRelated = sortProjects(projects, [
     ...relatedProjects.dependencies,
     ...changedProjects,
-    ...relatedProjects.dependants,
-  ]
+    ...relatedProjects.dependents,
+  ])
 
-  const allImpacted = [...changedProjects, ...relatedProjects.dependants]
+  const allImpacted = sortProjects(projects, [
+    ...changedProjects,
+    ...relatedProjects.dependents,
+  ])
 
   if (command === 'install') {
     printList(

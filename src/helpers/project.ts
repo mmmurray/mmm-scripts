@@ -46,11 +46,13 @@ const loadMonorepoProjects = async (
     join(workspace, 'package.json'),
   )
 
-  const packageManifestPaths = (await Promise.all(
-    workspacePackageGlobs.map(workspacePackageGlob =>
-      glob(workspacePackageGlob, { cwd: monorepoPath }),
-    ),
-  )).reduce((acc, paths) => [...acc, ...paths], [])
+  const packageManifestPaths = (
+    await Promise.all(
+      workspacePackageGlobs.map(workspacePackageGlob =>
+        glob(workspacePackageGlob, { cwd: monorepoPath }),
+      ),
+    )
+  ).reduce((acc, paths) => [...acc, ...paths], [])
 
   const projectPaths = packageManifestPaths.map(packageManifestPath =>
     join(monorepoPath, dirname(packageManifestPath)),
@@ -115,24 +117,32 @@ const getRelatedProjects = (
     )
   }
 
+  const dependents = projects.filter(
+    project =>
+      includeProject(project) &&
+      !toProjectsIncludes(project) &&
+      toProjects.some(toProject => isAncestor(project, toProject)),
+  )
+
+  const dependentsIncludes = createProjectsIncludes(dependents)
+
   const dependencies: Project[] = projects.filter(
     project =>
       includeProject(project) &&
       !toProjectsIncludes(project) &&
-      toProjects.some(toProject => isAncestor(toProject, project)),
+      !dependentsIncludes(project) &&
+      (toProjects.some(p => isAncestor(p, project)) ||
+        dependents.some(p => isAncestor(p, project))),
   )
 
-  const dependenciesIncludes = createProjectsIncludes(dependencies)
-
-  const dependants = projects.filter(
-    project =>
-      includeProject(project) &&
-      !toProjectsIncludes(project) &&
-      !dependenciesIncludes(project) &&
-      toProjects.some(toProject => isAncestor(project, toProject)),
-  )
-
-  return { dependencies, dependants }
+  return { dependencies, dependents }
 }
 
-export { loadProject, loadMonorepoProjects, getRelatedProjects }
+const sortProjects = (sortOrder: Project[], projects: Project[]): Project[] =>
+  projects.sort(
+    (a, b) =>
+      sortOrder.findIndex(p => p.path === a.path) -
+      sortOrder.findIndex(p => p.path === b.path),
+  )
+
+export { loadProject, loadMonorepoProjects, getRelatedProjects, sortProjects }

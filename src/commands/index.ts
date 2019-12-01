@@ -2,6 +2,7 @@ import { Project } from '../types'
 import { build } from './build'
 import { compile } from './compile'
 import { dev } from './dev'
+import { format } from './format'
 import { lint } from './lint'
 import { precommit } from './precommit'
 import { release } from './release'
@@ -17,6 +18,7 @@ const commands: Commands = {
   },
   build,
   dev,
+  format,
   jest: test({ watch: true }),
   precommit,
   release,

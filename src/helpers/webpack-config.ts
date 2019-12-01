@@ -4,6 +4,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import StartServerPlugin from 'start-server-webpack-plugin'
 import webpack, { Configuration } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import { join } from 'path'
 
 type Options = {
   alias?: {}
@@ -17,6 +18,8 @@ type Options = {
   react?: boolean
   target?: 'web' | 'node'
 }
+
+const ownNodeModulesPath = join(__dirname, '..', '..', 'node_modules')
 
 const classesAreGood = false
 
@@ -66,7 +69,10 @@ const createWebpackConfig = ({
         ...alias,
         ...(dev && react ? { 'react-dom': '@hot-loader/react-dom' } : {}),
       },
-      extensions: ['.ts', '.tsx', '.js', '.json'],
+      extensions: ['.mjs', '.ts', '.tsx', '.js', '.json'],
+    },
+    resolveLoader: {
+      modules: ['node_modules', ownNodeModulesPath],
     },
     plugins: [
       ...includeIf(
@@ -98,7 +104,7 @@ const createWebpackConfig = ({
           openAnalyzer: false,
         }),
       ),
-    ],
+    ] as any,
     module: {
       rules: [
         {
