@@ -12,22 +12,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install
-        uses: docker://mmmurray/test:1.32
+        uses: docker://mmmurray/test:latest
         with:
           entrypoint: yarn
           args: install
       - name: Build
-        uses: docker://mmmurray/test:1.32
+        uses: docker://mmmurray/test:latest
         with:
           entrypoint: yarn
           args: build
       - name: Test
-        uses: docker://mmmurray/test:1.32
+        uses: docker://mmmurray/test:latest
         with:
           entrypoint: yarn
           args: test
       - name: Release
-        uses: docker://mmmurray/test:1.32
+        uses: docker://mmmurray/test:latest
         with:
           entrypoint: yarn
           args: release

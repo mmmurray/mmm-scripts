@@ -1,7 +1,23 @@
-import { EOL } from 'os'
+import os, { EOL } from 'os'
 import webpack, { Configuration } from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
 import { Watcher } from '../types'
+
+const getLocalIp = (): string | null => {
+  const networkInterfaces = os.networkInterfaces()
+
+  for (const networkInterfaceInfo of Object.values(networkInterfaces)) {
+    const external = networkInterfaceInfo.find(
+      x => x.family === 'IPv4' && !x.internal,
+    )
+
+    if (external) {
+      return external.address
+    }
+  }
+
+  return null
+}
 
 const formatMessage = (message: string) =>
   message
@@ -53,12 +69,14 @@ const dev = (
       }
     })
 
-    const server = new WebpackDevServer(compiler, devServerConfig)
-    const host = 'localhost'
+    const server = new WebpackDevServer(compiler as any, devServerConfig)
     const port = 8080
+    const localIp = getLocalIp()
 
-    server.listen(port, host, () => {
-      onOutput(`Dev server running at http://${host}:${port}`)
+    server.listen(port, '0.0.0.0', () => {
+      onOutput(
+        `Dev server running at:\nhttp://localhost:${port}\nhttp://${localIp}:${port}`,
+      )
       resolve(async () => {})
     })
   })

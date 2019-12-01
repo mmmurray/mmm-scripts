@@ -61,13 +61,15 @@ const createGitConfig = (ignores: string[]): ConfigFile => ({
 const generateConfig = async (project: Project): Promise<void> => {
   const configWriter = createConfigWriter(project)
 
-  const { scripts, ignores } = (await Promise.all(
-    generators.map(async generator => {
-      const { scripts, files } = await generator(project)
-      const ignores = removeNull(await Promise.all(files.map(configWriter)))
-      return { scripts, ignores }
-    }),
-  )).reduce(
+  const { scripts, ignores } = (
+    await Promise.all(
+      generators.map(async generator => {
+        const { scripts, files } = await generator(project)
+        const ignores = removeNull(await Promise.all(files.map(configWriter)))
+        return { scripts, ignores }
+      }),
+    )
+  ).reduce(
     (acc, x) => ({
       scripts: { ...acc.scripts, ...x.scripts },
       ignores: [...acc.ignores, ...x.ignores],
