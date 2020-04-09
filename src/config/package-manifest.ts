@@ -36,7 +36,7 @@ const packagePropertySortOrder = [
 
 const sortAndFilterProperties = (packageManifest: { [key: string]: any }) =>
   Object.keys(packageManifest)
-    .filter(name => packagePropertySortOrder.includes(name))
+    .filter((name) => packagePropertySortOrder.includes(name))
     .sort(
       (a, b) =>
         packagePropertySortOrder.indexOf(a) -

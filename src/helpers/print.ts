@@ -23,11 +23,11 @@ const printBox = (message: string, style: Style) => {
 const printList = <T>(
   heading: string,
   items: T[],
-  itemFormatter: (value: T) => string = x => String(x),
+  itemFormatter: (value: T) => string = (x) => String(x),
   style: Style = 'neutral',
 ): void => {
   printBox(heading, style)
-  console.log(`${items.map(item => ` - ${itemFormatter(item)}`).join('\n')}`)
+  console.log(`${items.map((item) => ` - ${itemFormatter(item)}`).join('\n')}`)
 }
 
 const pluraliseMessage = <T>(

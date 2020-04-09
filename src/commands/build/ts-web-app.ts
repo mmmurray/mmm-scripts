@@ -1,4 +1,4 @@
-import { emptyDir } from 'fs-extra'
+import { emptyDir, copy, existsSync } from 'fs-extra'
 import { join } from 'path'
 import { getLinkedLibs } from '../../helpers/linked-libs'
 import { compile } from '../../helpers/webpack'
@@ -10,8 +10,13 @@ const buildTSWebApp = async (
   component: ProjectComponentTSWebApp,
 ): Promise<void> => {
   const outputPath = join(project.path, component.outputPath)
+  const staticPath = join(project.path, component.entryPath, 'static')
 
   await emptyDir(outputPath)
+
+  if (existsSync(staticPath)) {
+    await copy(staticPath, join(outputPath, 'static'))
+  }
 
   const config = createWebpackConfig({
     alias: getLinkedLibs(project),

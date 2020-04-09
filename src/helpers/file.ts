@@ -12,7 +12,7 @@ const tryReadLines = async (path: string) => {
 
     return contents
       .split('\n')
-      .map(line => line.trim())
+      .map((line) => line.trim())
       .filter(Boolean)
   } catch {
     return []

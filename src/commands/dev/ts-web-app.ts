@@ -27,6 +27,9 @@ const devTSWebApp = (
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    historyApiFallback: true,
+    contentBase: join(project.path, component.entryPath, 'static'),
+    contentBasePublicPath: '/static',
   })
 }
 

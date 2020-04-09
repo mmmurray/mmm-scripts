@@ -10,7 +10,7 @@ const run = async (
   const [command, ...commandArgs] = args
 
   const projectsWithScript = projects.filter(
-    project => project.packageManifest.scripts[command],
+    (project) => project.packageManifest.scripts[command],
   )
 
   let index = 0

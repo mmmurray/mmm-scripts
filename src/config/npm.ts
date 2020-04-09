@@ -1,8 +1,8 @@
 import { ConfigGenerator, Scripts } from './types'
 
-const npmGenerator: ConfigGenerator = async project => {
+const npmGenerator: ConfigGenerator = async (project) => {
   const libComponent = project.components.find(
-    component => component.type === 'ts-lib',
+    (component) => component.type === 'ts-lib',
   )
 
   if (!libComponent) {

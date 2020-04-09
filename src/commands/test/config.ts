@@ -25,7 +25,7 @@ const createJestConfig = (options: Options) => {
     clearMocks: true,
     collectCoverageFrom: [
       'src/**/*.{js,jsx,ts,tsx}',
-      ...options.coverageIgnores.map(x => `!${x}`),
+      ...options.coverageIgnores.map((x) => `!${x}`),
     ],
     coverageThreshold: {
       global: {
