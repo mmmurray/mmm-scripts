@@ -5,6 +5,7 @@ import { getChangedFilePaths } from '../helpers/git'
 import { pluraliseMessage, printBox, printList } from '../helpers/print'
 import { getRelatedProjects, sortProjects } from '../helpers/project'
 import { Project } from '../types'
+import { create } from './create'
 import { dependencyValidation } from './dependency-validation'
 import { install } from './install'
 import { run } from './run'
@@ -13,14 +14,14 @@ const workspace = async (
   workspaceRoot: string,
   projects: Project[],
   args: string[],
-) => {
+): Promise<void> => {
   const getProjectName = (project: Project): string =>
     relative(workspaceRoot, project.path)
 
   printList(
     pluraliseMessage(projects, '#N available #W', 'project', 'projects'),
     projects,
-    project => chalk.blueBright(getProjectName(project)),
+    (project) => chalk.blueBright(getProjectName(project)),
   )
 
   await dependencyValidation(projects, getProjectName)
@@ -37,6 +38,11 @@ const workspace = async (
     process.exit(1)
   }
 
+  if (command === 'create') {
+    await create(workspaceRoot, projects)
+    return
+  }
+
   const changedPaths: string[] | null = since
     ? await getChangedFilePaths(workspaceRoot, since)
     : null
@@ -50,7 +56,7 @@ const workspace = async (
         'files',
       ),
       changedPaths,
-      path => chalk.blueBright(path),
+      (path) => chalk.blueBright(path),
     )
   } else {
     printBox(
@@ -60,9 +66,9 @@ const workspace = async (
   }
 
   const changedProjects = projects.filter(
-    project =>
+    (project) =>
       !changedPaths ||
-      changedPaths.some(changedPath =>
+      changedPaths.some((changedPath) =>
         changedPath.startsWith(`${project.path}/`),
       ),
   )
@@ -70,13 +76,13 @@ const workspace = async (
   printList(
     pluraliseMessage(changedProjects, '#N changed #W', 'project', 'projects'),
     changedProjects,
-    project => chalk.blueBright(getProjectName(project)),
+    (project) => chalk.blueBright(getProjectName(project)),
   )
 
   const relatedProjects = getRelatedProjects(
     projects,
     changedProjects,
-    project => project.packageManifest.name !== 'mmm-scripts',
+    (project) => project.packageManifest.name !== 'mmm-scripts',
   )
 
   printList(
@@ -87,7 +93,7 @@ const workspace = async (
       'dependents',
     ),
     relatedProjects.dependents,
-    project => chalk.blueBright(getProjectName(project)),
+    (project) => chalk.blueBright(getProjectName(project)),
   )
 
   printList(
@@ -98,7 +104,7 @@ const workspace = async (
       'dependencies',
     ),
     relatedProjects.dependencies,
-    project => chalk.blueBright(getProjectName(project)),
+    (project) => chalk.blueBright(getProjectName(project)),
   )
 
   const allRelated = sortProjects(projects, [
@@ -116,7 +122,7 @@ const workspace = async (
     printList(
       pluraliseMessage(allRelated, 'Installing #N #W', 'project', 'projects'),
       allRelated,
-      project => chalk.blueBright(getProjectName(project)),
+      (project) => chalk.blueBright(getProjectName(project)),
     )
 
     await install(workspaceRoot, allRelated)

@@ -25,7 +25,7 @@ const commands: Commands = {
   'test:compile': compile,
   'test:coverage': test({ coverage: true }),
   'test:lint': lint,
-  test: async project => {
+  test: async (project) => {
     await compile(project)
     await lint(project)
     await test({ coverage: true })(project)

@@ -36,7 +36,7 @@ const validateDependencies = (projects: Project[]): Validation => {
   const invalid: Dependency[] = []
   const mismatchDependencies: string[] = []
 
-  projects.forEach(project => {
+  projects.forEach((project) => {
     getProjectPackageManifestDependencies(project).forEach(
       ([name, version]) => {
         if (!isVersionValid(version)) {
@@ -56,7 +56,7 @@ const validateDependencies = (projects: Project[]): Validation => {
     )
   })
 
-  const mismatches = mismatchDependencies.map<Mismatch>(mismatchName => ({
+  const mismatches = mismatchDependencies.map<Mismatch>((mismatchName) => ({
     name: mismatchName,
     versions: projects.reduce<ProjectVersion[]>((acc, project) => {
       const packageManifestDependency = getProjectPackageManifestDependencies(

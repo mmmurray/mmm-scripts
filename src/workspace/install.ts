@@ -9,7 +9,7 @@ const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
 const updateWorkspaces = async (workspaceRoot: string, projects: Project[]) => {
-  const newWorkspaces = projects.map(project =>
+  const newWorkspaces = projects.map((project) =>
     relative(workspaceRoot, project.path),
   )
 
@@ -28,7 +28,9 @@ const updateProjectDependencies = async (project: Project) => {
 
   const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    devDependencies: { 'mmm-scripts': mmmScripts, ...devDependencies },
+    devDependencies: { 'mmm-scripts': mmmScripts, ...devDependencies } = {
+      'mmm-scripts': undefined,
+    },
     ...packageManifest
   } = JSON.parse(await readFile(packageManifestPath, 'utf-8'))
 

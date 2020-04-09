@@ -32,12 +32,12 @@ const dev = async (project: Project) => {
       const formatMessage = (message: string) =>
         message
           .split(EOL)
-          .map(line => `${colour('[' + name + ']')} ${line}`)
+          .map((line) => `${colour('[' + name + ']')} ${line}`)
           .join(EOL)
 
       return watcher(
-        message => console.log(formatMessage(message)),
-        message => console.error(formatMessage(chalk.redBright(message))),
+        (message) => console.log(formatMessage(message)),
+        (message) => console.error(formatMessage(chalk.redBright(message))),
       )
     }),
   )

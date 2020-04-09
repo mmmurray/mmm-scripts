@@ -18,7 +18,7 @@ const dependencyValidation = async (
         'dependencies',
       ),
       validation.invalid,
-      invalid =>
+      (invalid) =>
         `${chalk.blueBright(getProjectName(invalid.project))}: ${
           invalid.name
         }@${invalid.version}`,
@@ -38,10 +38,10 @@ const dependencyValidation = async (
         'dependencies',
       ),
       validation.mismatches,
-      mismatch =>
+      (mismatch) =>
         `${mismatch.name}:\n${mismatch.versions
           .map(
-            version =>
+            (version) =>
               `    - ${chalk.blueBright(getProjectName(version.project))}: ${
                 mismatch.name
               }@${version.version}`,
@@ -55,7 +55,7 @@ const dependencyValidation = async (
   }
 
   const internalDependencies = projects.map(
-    project => project.packageManifest.name,
+    (project) => project.packageManifest.name,
   )
 
   const externalDependencies = Object.entries(validation.dependencyVersions)

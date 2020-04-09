@@ -14,7 +14,7 @@ const getChangedFilePaths = async (
   return output
     .split('\n')
     .filter(Boolean)
-    .map(path => join(repoPath, path))
+    .map((path) => join(repoPath, path))
 }
 
 export { getChangedFilePaths }

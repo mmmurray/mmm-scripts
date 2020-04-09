@@ -24,18 +24,16 @@ const run = async (args: string[]) => {
   if (!commandRunner) {
     console.error(`Unknown command '${command}'`)
     process.exit(1)
-    return
   }
 
   const project =
     monorepoProjects.find(
-      monorepoProject => monorepoProject.path === projectPath,
+      (monorepoProject) => monorepoProject.path === projectPath,
     ) || (await loadProject(projectPath))
 
   if (!project) {
     console.error(`Cannot find project in '${projectPath}'`)
     process.exit(1)
-    return
   }
 
   await generateConfig(project)
@@ -43,7 +41,7 @@ const run = async (args: string[]) => {
   await commandRunner(project)
 }
 
-run(process.argv.slice(2)).catch(error => {
+run(process.argv.slice(2)).catch((error) => {
   console.error(error)
   process.exit(1)
 })

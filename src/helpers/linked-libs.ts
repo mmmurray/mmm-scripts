@@ -4,7 +4,7 @@ import { Project } from '../types'
 const getLinkedLibs = (project: Project) =>
   project.dependencies.reduce<{ [name: string]: string }>((acc, dependency) => {
     const libComponent = dependency.components.find(
-      component => component.type === 'ts-lib',
+      (component) => component.type === 'ts-lib',
     )
 
     if (!libComponent) {

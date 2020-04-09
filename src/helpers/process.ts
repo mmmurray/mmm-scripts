@@ -29,7 +29,7 @@ const execProcess = (
       stdio: 'inherit',
     })
 
-    ps.on('close', code => {
+    ps.on('close', (code) => {
       if (code === 0) {
         resolve(0)
       } else {

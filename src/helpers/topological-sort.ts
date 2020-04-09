@@ -9,7 +9,7 @@ const topologicalSort = (_edges: Edge[]): Node[] => {
     .reduce<Node[]>((acc, [a, b]) => [...acc, a, b], [])
     .filter((a, i, arr) => arr.indexOf(a) === i)
 
-  const nodes = Array.from(allNodes.values()).filter(node =>
+  const nodes = Array.from(allNodes.values()).filter((node) =>
     edges.every(([, b]) => b !== node),
   )
 
@@ -20,7 +20,7 @@ const topologicalSort = (_edges: Edge[]): Node[] => {
 
     edges
       .filter(([a]) => a === n)
-      .forEach(edge => {
+      .forEach((edge) => {
         edges.splice(edges.indexOf(edge), 1)
 
         const [, m] = edge

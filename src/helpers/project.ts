@@ -42,19 +42,19 @@ const loadMonorepoProjects = async (
     join(monorepoPath, 'package.json'),
   )
 
-  const workspacePackageGlobs = workspaces.map(workspace =>
+  const workspacePackageGlobs = workspaces.map((workspace) =>
     join(workspace, 'package.json'),
   )
 
   const packageManifestPaths = (
     await Promise.all(
-      workspacePackageGlobs.map(workspacePackageGlob =>
+      workspacePackageGlobs.map((workspacePackageGlob) =>
         glob(workspacePackageGlob, { cwd: monorepoPath }),
       ),
     )
   ).reduce((acc, paths) => [...acc, ...paths], [])
 
-  const projectPaths = packageManifestPaths.map(packageManifestPath =>
+  const projectPaths = packageManifestPaths.map((packageManifestPath) =>
     join(monorepoPath, dirname(packageManifestPath)),
   )
 
@@ -62,7 +62,7 @@ const loadMonorepoProjects = async (
     await Promise.all(projectPaths.map(loadProject)),
   )
 
-  const projects = baseProjects.map(baseProject => {
+  const projects = baseProjects.map((baseProject) => {
     const allDependencies = [
       ...Object.keys(baseProject.packageManifest.dependencies),
       ...Object.keys(baseProject.packageManifest.devDependencies),
@@ -70,7 +70,7 @@ const loadMonorepoProjects = async (
 
     return {
       ...baseProject,
-      dependencies: baseProjects.filter(monorepoProject =>
+      dependencies: baseProjects.filter((monorepoProject) =>
         allDependencies.includes(monorepoProject.packageManifest.name),
       ),
     }
@@ -80,7 +80,7 @@ const loadMonorepoProjects = async (
     (acc, project) => [
       ...acc,
       ...project.dependencies.map(
-        dependency => [project.path, dependency.path] as [string, string],
+        (dependency) => [project.path, dependency.path] as [string, string],
       ),
     ],
     [],
@@ -98,7 +98,7 @@ const createProjectsIncludes = (
   projects: Project[],
 ): ((project: Project) => boolean) => {
   const projectPaths = projects.map(({ path }) => path)
-  return project => projectPaths.includes(project.path)
+  return (project) => projectPaths.includes(project.path)
 }
 
 const getRelatedProjects = (
@@ -113,26 +113,26 @@ const getRelatedProjects = (
 
     return (
       createProjectsIncludes(projectDependencies)(to) ||
-      projectDependencies.some(dependency => isAncestor(dependency, to))
+      projectDependencies.some((dependency) => isAncestor(dependency, to))
     )
   }
 
   const dependents = projects.filter(
-    project =>
+    (project) =>
       includeProject(project) &&
       !toProjectsIncludes(project) &&
-      toProjects.some(toProject => isAncestor(project, toProject)),
+      toProjects.some((toProject) => isAncestor(project, toProject)),
   )
 
   const dependentsIncludes = createProjectsIncludes(dependents)
 
   const dependencies: Project[] = projects.filter(
-    project =>
+    (project) =>
       includeProject(project) &&
       !toProjectsIncludes(project) &&
       !dependentsIncludes(project) &&
-      (toProjects.some(p => isAncestor(p, project)) ||
-        dependents.some(p => isAncestor(p, project))),
+      (toProjects.some((p) => isAncestor(p, project)) ||
+        dependents.some((p) => isAncestor(p, project))),
   )
 
   return { dependencies, dependents }
@@ -141,8 +141,8 @@ const getRelatedProjects = (
 const sortProjects = (sortOrder: Project[], projects: Project[]): Project[] =>
   projects.sort(
     (a, b) =>
-      sortOrder.findIndex(p => p.path === a.path) -
-      sortOrder.findIndex(p => p.path === b.path),
+      sortOrder.findIndex((p) => p.path === a.path) -
+      sortOrder.findIndex((p) => p.path === b.path),
   )
 
 export { loadProject, loadMonorepoProjects, getRelatedProjects, sortProjects }

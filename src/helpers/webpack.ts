@@ -8,7 +8,7 @@ const getLocalIp = (): string | null => {
 
   for (const networkInterfaceInfo of Object.values(networkInterfaces)) {
     const external = networkInterfaceInfo.find(
-      x => x.family === 'IPv4' && !x.internal,
+      (x) => x.family === 'IPv4' && !x.internal,
     )
 
     if (external) {
@@ -22,7 +22,7 @@ const getLocalIp = (): string | null => {
 const formatMessage = (message: string) =>
   message
     .split(EOL)
-    .filter(line => line.indexOf('./') !== 0 && line.indexOf('/') !== 0)
+    .filter((line) => line.indexOf('./') !== 0 && line.indexOf('/') !== 0)
     .join(EOL)
 
 const formatMessages = (messages: string[]) =>
@@ -50,14 +50,14 @@ const dev = (
   config: Configuration,
   devServerConfig: WebpackDevServer.Configuration,
 ): Watcher => (onOutput, onError) =>
-  new Promise(async resolve => {
+  new Promise(async (resolve) => {
     const compiler = webpack(config)
 
     compiler.hooks.invalid.tap('invalid', () => {
       onOutput('Bundling.')
     })
 
-    compiler.hooks.done.tap('done', stats => {
+    compiler.hooks.done.tap('done', (stats) => {
       const info = stats.toJson()
 
       if (info.errors.length > 0) {

@@ -35,9 +35,9 @@ jobs:
           NPM_TOKEN: \${{ secrets.NPM_TOKEN }}
 `
 
-const githubGenerator: ConfigGenerator = async project => {
+const githubGenerator: ConfigGenerator = async (project) => {
   const libComponent = project.components.find(
-    component => component.type === 'ts-lib',
+    (component) => component.type === 'ts-lib',
   )
 
   if (!libComponent) {

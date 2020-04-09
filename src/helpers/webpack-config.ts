@@ -62,8 +62,10 @@ const createWebpackConfig = ({
       filename: outputFilename,
       path: outputPath,
       libraryTarget: target === 'node' ? 'commonjs' : undefined,
+      publicPath: '/',
     },
-    externals: target === 'node' ? ['aws-sdk'] : [],
+    externals:
+      target === 'node' ? ['aws-sdk', 'bufferutil', 'utf-8-validate'] : [],
     resolve: {
       alias: {
         ...alias,
@@ -73,6 +75,9 @@ const createWebpackConfig = ({
     },
     resolveLoader: {
       modules: ['node_modules', ownNodeModulesPath],
+    },
+    performance: {
+      hints: false,
     },
     plugins: [
       ...includeIf(

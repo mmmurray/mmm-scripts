@@ -48,8 +48,8 @@ const baseLibConfig = {
   include: ['src/**/*'],
 }
 
-const tsGenerator: ConfigGenerator = async project => {
-  const hasTSComponent = project.components.some(component =>
+const tsGenerator: ConfigGenerator = async (project) => {
+  const hasTSComponent = project.components.some((component) =>
     tsComponentTypes.includes(component.type),
   )
 
@@ -73,7 +73,7 @@ const tsGenerator: ConfigGenerator = async project => {
   }
 
   const libConfigs = removeNull(
-    project.components.map(component => {
+    project.components.map((component) => {
       if (component.type !== 'ts-lib') {
         return null
       }

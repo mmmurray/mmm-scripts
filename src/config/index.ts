@@ -11,6 +11,7 @@ import { githubGenerator } from './github'
 import { huskyGenerator } from './husky'
 import { jestGenerator } from './jest'
 import { licenseGenerator } from './license'
+import { mmmGenerator } from './mmm'
 import { npmGenerator } from './npm'
 import { updatePackageManifest } from './package-manifest'
 import { prettierGenerator } from './prettier'
@@ -26,6 +27,7 @@ const generators: ConfigGenerator[] = [
   huskyGenerator,
   jestGenerator,
   licenseGenerator,
+  mmmGenerator,
   npmGenerator,
   prettierGenerator,
   tsGenerator,
@@ -63,7 +65,7 @@ const generateConfig = async (project: Project): Promise<void> => {
 
   const { scripts, ignores } = (
     await Promise.all(
-      generators.map(async generator => {
+      generators.map(async (generator) => {
         const { scripts, files } = await generator(project)
         const ignores = removeNull(await Promise.all(files.map(configWriter)))
         return { scripts, ignores }
@@ -78,7 +80,7 @@ const generateConfig = async (project: Project): Promise<void> => {
   )
 
   const outputIgnores = project.components.map(
-    component => component.outputPath,
+    (component) => component.outputPath,
   )
 
   const existingIgnores = await tryReadLines(join(project.path, '.gitignore'))
