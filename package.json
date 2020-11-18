@@ -51,7 +51,7 @@
     "jest-watch-typeahead": "0.4.2",
     "prettier": "2.0.2",
     "react-hot-loader": "4.12.20",
-    "semantic-release": "17.0.4",
+    "semantic-release": "17.2.3",
     "start-server-webpack-plugin": "2.2.5",
     "ts-node": "8.8.1",
     "typescript": "3.8.3",
